@@ -504,15 +504,6 @@
             "field": "id",
             "description": "<p>The unique identifier of the list to retrieve</p>"
           }
-        ],
-        "URL query parameters": [
-          {
-            "group": "URL query parameters",
-            "type": "String",
-            "optional": true,
-            "field": "include",
-            "description": "<p>Embed linked resources in the response body:</p> <ul> <li><code>&quot;name&quot;</code> for the list's name</li> </ul>"
-          }
         ]
       }
     },
@@ -617,19 +608,6 @@
     },
     "filename": "routes/lists.js",
     "groupTitle": "List",
-    "parameter": {
-      "fields": {
-        "URL query parameters": [
-          {
-            "group": "URL query parameters",
-            "type": "String",
-            "optional": true,
-            "field": "include",
-            "description": "<p>Embed linked resources in the response body:</p> <ul> <li><code>&quot;name&quot;</code> for the list's name</li> </ul>"
-          }
-        ]
-      }
-    },
     "error": {
       "fields": {
         "Error 4xx": [
@@ -687,7 +665,7 @@
           },
           {
             "group": "Response body",
-            "type": "String",
+            "type": "Date",
             "optional": false,
             "field": "registrationDate",
             "description": "<p>The date at which the user was created</p>"
@@ -705,7 +683,7 @@
     "examples": [
       {
         "title": "Example",
-        "content": "POST / HTTP/1.1\nContent-Type: application/json\n\n{\n  \"username\": \"Pomme\",\n  \"email\": \"gateau@gmail.com\",\n  \"password\": \"Tre$B0n\"\n}",
+        "content": "POST /users HTTP/1.1\nContent-Type: application/json\n\n{\n  \"username\": \"Pomme\",\n  \"email\": \"gateau@gmail.com\",\n  \"password\": \"Tre$B0n\"\n}",
         "type": "json"
       }
     ],
@@ -717,17 +695,10 @@
           {
             "group": "Request body",
             "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>An Id which is referencing the user (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "String",
             "size": "/^[a-zA-Z0-9]+$/",
             "optional": false,
             "field": "username",
-            "description": "<p>The username of the user (must be unique and cannot be blank)</p>"
+            "description": "<p>The username of the user (must be unique)</p>"
           },
           {
             "group": "Request body",
@@ -735,22 +706,42 @@
             "size": "/\\S+@\\S+\\.\\S+/",
             "optional": false,
             "field": "email",
-            "description": "<p>The email of the user (must match an email form, must be unique and cannot be blank)</p>"
+            "description": "<p>The email of the user (must match an email form, must be unique)</p>"
           },
           {
             "group": "Request body",
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>The password of the user that is put in hash (cannot be blank)</p>"
+            "description": "<p>The password of the user that is put in hash</p>"
           }
         ]
       }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "422/UnprocessableEntity",
+            "description": "<p>Some of the User's properties are invalid</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "422 Unprocessable Entity",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  A corriger\n}",
+          "type": "json"
+        }
+      ]
     }
   },
   {
     "type": "delete",
-    "url": "/:id",
+    "url": "/users/:id",
     "title": "Delete an user",
     "name": "DeleteUser",
     "group": "User",
@@ -786,6 +777,26 @@
           }
         ]
       }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "404/NotFound",
+            "description": "<p>No User was found corresponding to the ID in the URL path</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404 Not Found",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        }
+      ]
     }
   },
   {
@@ -818,7 +829,7 @@
             "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>An Id which is referencing the user</p>"
+            "description": "<p>An Id which is referencing the user (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
           },
           {
             "group": "Response body",
@@ -838,7 +849,7 @@
           },
           {
             "group": "Response body",
-            "type": "String",
+            "type": "Date",
             "optional": false,
             "field": "registrationDate",
             "description": "<p>The date at which the user was created</p>"
@@ -858,8 +869,37 @@
             "field": "id",
             "description": "<p>The unique identifier of the user to retrieve</p>"
           }
+        ],
+        "URL query parameters": [
+          {
+            "group": "URL query parameters",
+            "type": "String",
+            "optional": true,
+            "field": "include",
+            "description": "<p>Embed linked resources in the response body:</p> <ul> <li><code>&quot;username&quot;</code> for the user's username</li> </ul>"
+          }
         ]
       }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "404/NotFound",
+            "description": "<p>No User was found corresponding to the ID in the URL path</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404 Not Found",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        }
+      ]
     }
   },
   {
@@ -870,9 +910,21 @@
     "group": "User",
     "version": "1.0.0",
     "description": "<p>Retrieves a paginated??? list of users ordered by usernames???? (in alphabetical order).</p>",
-    "filename": "routes/users.js",
-    "groupTitle": "User",
+    "examples": [
+      {
+        "title": "Example",
+        "content": "GET /users HTTP/1.1",
+        "type": "json"
+      }
+    ],
     "success": {
+      "examples": [
+        {
+          "title": "200 OK",
+          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n [{\n     \"_id\":\"5f981e64eeac3042b0e27b86\",\n     \"username\":\"Pomme\",\n     \"email\":\"gateau@gmail.com\",\n     \"registrationDate\":\"2020-10-27T13:19:32.249Z\"\n },\n {\n     \"_id\":\"5f85a58eb731925bec4aee2d\",\n     \"username\":\"tata\",\n     \"email\":\"abc@hhh.ch\",\n     \"registrationDate\":\"2020-10-13T13:03:10.304Z\"\n  }]",
+          "type": "json"
+        }
+      ],
       "fields": {
         "Response body": [
           {
@@ -880,7 +932,7 @@
             "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>An Id which is referencing the user</p>"
+            "description": "<p>An Id which is referencing the user (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
           },
           {
             "group": "Response body",
@@ -900,13 +952,48 @@
           },
           {
             "group": "Response body",
-            "type": "String",
+            "type": "Date",
             "optional": false,
             "field": "registrationDate",
             "description": "<p>The date at which the user was created</p>"
           }
         ]
       }
+    },
+    "filename": "routes/users.js",
+    "groupTitle": "User",
+    "parameter": {
+      "fields": {
+        "URL query parameters": [
+          {
+            "group": "URL query parameters",
+            "type": "String",
+            "optional": true,
+            "field": "include",
+            "description": "<p>Embed linked resources in the response body:</p> <ul> <li><code>&quot;username&quot;</code> for the user's username</li> </ul>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "404/NotFound",
+            "description": "<p>No User was found corresponding to the ID in the URL path</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404 Not Found",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        }
+      ]
     }
   },
   {
@@ -916,11 +1003,11 @@
     "name": "UpdateUser",
     "group": "User",
     "version": "1.0.0",
-    "description": "<p>Updates the new data on the old user's data</p>",
+    "description": "<p>Partially updates a user's data (only the properties found in the request body will be updated).</p>",
     "examples": [
       {
         "title": "Example",
-        "content": "PUT /api/movies/58b2926f5e1def0123e97bc0 HTTP/1.1\nContent-Type: application/json\n\n{\n  \"username\": \"Poire\",\n  \"password\": \"Tre$M4uvais\"\n}",
+        "content": "PATCH /users/58b2926f5e1def0123e97bc0 HTTP/1.1\nContent-Type: application/json\n\n{\n  \"username\": \"Poire\",\n  \"password\": \"Tre$M4uvais\"\n}",
         "type": "json"
       }
     ],
@@ -939,7 +1026,7 @@
             "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>An Id which is referencing the user</p>"
+            "description": "<p>An Id which is referencing the user (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
           },
           {
             "group": "Response body",
@@ -959,7 +1046,7 @@
           },
           {
             "group": "Response body",
-            "type": "String",
+            "type": "Date",
             "optional": false,
             "field": "registrationDate",
             "description": "<p>The date at which the user was created</p>"
@@ -984,17 +1071,10 @@
           {
             "group": "Request body",
             "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>An Id which is referencing the user (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "String",
             "size": "/^[a-zA-Z0-9]+$/",
             "optional": false,
             "field": "username",
-            "description": "<p>The username of the user (must be unique and cannot be blank)</p>"
+            "description": "<p>The username of the user (must be unique)</p>"
           },
           {
             "group": "Request body",
@@ -1002,17 +1082,49 @@
             "size": "/\\S+@\\S+\\.\\S+/",
             "optional": false,
             "field": "email",
-            "description": "<p>The email of the user (must match an email form, must be unique and cannot be blank)</p>"
+            "description": "<p>The email of the user (must match an email form, must be unique)</p>"
           },
           {
             "group": "Request body",
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>The password of the user that is put in hash (cannot be blank)</p>"
+            "description": "<p>The password of the user that is put in hash</p>"
           }
         ]
       }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "404/NotFound",
+            "description": "<p>No User was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "422/UnprocessableEntity",
+            "description": "<p>Some of the User's properties are invalid</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404 Not Found",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        },
+        {
+          "title": "422 Unprocessable Entity",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  A corriger\n}",
+          "type": "json"
+        }
+      ]
     }
   }
 ]
