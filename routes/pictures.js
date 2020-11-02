@@ -245,4 +245,8 @@ function authorizationUserPicture(req, res, next) {
   next();
 }
 
+function pictureNotFound(res, pictureId) {
+  return res.status(404).type('text').send(`No picture found with ID ${pictureId}`);
+}
+
 module.exports = router;
