@@ -112,8 +112,13 @@ router.get('/pictures', function (req, res, next) {
 
 
 /* GET pictures listing. */
-router.get('/', function (req, res, next) {
-  Picture.find().sort('picture').exec(function (err, pictures) {
+router.get('/', utils.authenticate, authorization, function (req, res, next) {
+  Picture
+  .find({
+    userId: req.currentUserId
+  })
+  .sort('picture')
+  .exec(function (err, pictures) {
     if (err) {
       return next(err);
     }
@@ -123,7 +128,7 @@ router.get('/', function (req, res, next) {
 
 
 /* GET one specific picture */
-router.get('/:pictureId', getPicture, function (req, res, next) {
+router.get('/:pictureId', utils.authenticate, getPicture, authorizationUserPicture, function (req, res, next) {
   res.send(req.picture);
 });
 
@@ -145,7 +150,7 @@ router.get('/:pictureId', getPicture, function (req, res, next) {
  */
 
 /* POST new picture */
-router.post('/', getPicture, function (req, res, next) {
+router.post('/', utils.authenticate, authorization, getPicture, function (req, res, next) {
   // Retrieve the user ID from the URL.
   const user = req.params.userId;
   // Create a new picture from the JSON in the request body
@@ -164,7 +169,7 @@ router.post('/', getPicture, function (req, res, next) {
 
 
 //   /* PATCH one picture */
-router.patch('/:pictureId', utils.authenticate, getPicture, function (req, res, next) {
+router.patch('/:pictureId', utils.authenticate, getPicture, authorizationUserPicture, function (req, res, next) {
   // res.send(req.picture.name);
   // Update all properties (regardless of whether they are in the request body or not)
   if (req.body.description !== undefined) {
@@ -190,7 +195,7 @@ router.patch('/:pictureId', utils.authenticate, getPicture, function (req, res, 
 
 
 ///* DELETE one picture */
-router.delete('/:pictureId', utils.authenticate, getPicture, function (req, res, next) {
+router.delete('/:pictureId', utils.authenticate, getPicture, authorizationUserPicture, function (req, res, next) {
   req.picture.remove(function (err) {
     if (err) {
       return next(err);
@@ -220,6 +225,61 @@ function getPicture(req, res, next) {
     req.picture = picture;
     next();
   });
+}
+
+// Authorization to do something with the id of user in the param
+function authorization(req, res, next) {
+  // Authorization
+  if (req.currentUserId != req.params.userId) {
+    return res.status(403).send("You're not allowed to do that")
+  }
+  next();
+}
+
+// Authorization to do something with the id of user in the param and the id of the user on the picture
+function authorizationUserPicture(req, res, next) {
+  // Authorization
+  if (req.currentUserId != req.params.userId || req.currentUserId != req.picture.userId) {
+    return res.status(403).send("You're not allowed to do that")
+  }
+  next();
+}
+
+
+/**
+ * getPicture: loads the picture corresponding to the ID in the URL path.
+ * Responds with 404 Not Found if the ID is not valid or the picture doesn't exist.
+ */
+function getPicture(req, res, next) {
+
+  const pictureId = req.params.id;
+  if (!ObjectId.isValid(pictureId)) {
+    return pictureNotFound(res, pictureId);
+  }
+
+  let query = Picture.findById(pictureId)
+  // Populate the picture if indicated in the "include" URL query parameter
+  if (utils.responseShouldInclude(req, 'picture')) {
+    query = query.populate('pictureId');
+  }
+
+  query.exec(function (err, picture) {
+    if (err) {
+      return next(err);
+    } else if (!picture) {
+      return pictureNotFound(res, pictureId);
+    }
+
+    req.picture = picture;
+    next();
+  });
+}
+
+/**
+ * Responds with 404 Not Found and a message indicating that the movie with the specified ID was not found.
+ */
+function pictureNotFound(res, pictureId) {
+  return res.status(404).type('text').send(`No picture found with ID ${pictureId}`);
 }
 
 module.exports = router;
