@@ -73,7 +73,6 @@ function transformJsonPicture(doc, json, options) {
   // Remove MongoDB _id & __v (there's a default virtual "id" property)
   delete json._id;
   delete json.__v;
-
   return json;
 }
 

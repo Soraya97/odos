@@ -60,7 +60,7 @@ router.get('/', utils.authenticate, authorization, function(req, res, next) {
       if (err) {
         return next(err);
       }
-      
+
       // Websocket
       const nbLists = lists.length;
       webSocket.nbLists(nbLists);
@@ -314,6 +314,10 @@ function getList(req, res, next) {
   });
 }
 
+function listNotFound(res, pictureId) {
+  return res.status(404).type('text').send(`No list found with ID ${listId}`);
+}
+
 // Authorization to do something with the id of user in the param and the id of the user on the list
 function authorizationUserList(req, res, next) {
   // Authorization
@@ -342,19 +346,19 @@ function authorization(req, res, next) {
  * @apiDefine ListInRequestBody
  * @apiParam (Request body) {String{minlength: 3}} name The name of the list (must be unique)
  * @apiParam (Request body) {Boolean{default: false}} public Make the list private or public
- * @apiParam (Request body) {Schema.Types.ObjectId} userId An Id who is referencing to the user who create the list (eg: `5f981e64eeac3042b0e27b86`) 
- * @apiParam (Request body) {Schema.Types.ObjectId} pictureId An Id who is referencing to the picture who is in the list (eg: `A CHANGER`) 
+ * @apiParam (Request body) {Schema.Types.ObjectId} userId An Id who is referencing to the user who create the list (eg: `5f981e64eeac3042b0e27b86`)
+ * @apiParam (Request body) {Schema.Types.ObjectId} pictureId An Id who is referencing to the picture who is in the list (eg: `A CHANGER`)
  * */
 
 /**
  * @apiDefine ListInResponseBody
  * @apiSuccess (Response body) {Boolean{default: false}} public Make the list private or public
  * @apiSuccess (Response body) {String} id An Id which is referencing the list (eg: `5f98321aabf23b2cfce0fe76`)
- * @apiSuccess (Response body) {String} name The name of the list 
+ * @apiSuccess (Response body) {String} name The name of the list
  * @apiSuccess (Response body) {Date} creationDate The date at which the list was created
  * @apiSuccess (Response body) {Date} modificationDate The date at which the list was modified
- * @apiSuccess (Response body) {Schema.Types.ObjectId} userId An Id who is referencing to the user who create the list  
- * @apiSuccess (Response body) {Schema.Types.ObjectId} pictureId An Id who is referencing to the picture who is in the list 
+ * @apiSuccess (Response body) {Schema.Types.ObjectId} userId An Id who is referencing to the user who create the list
+ * @apiSuccess (Response body) {Schema.Types.ObjectId} pictureId An Id who is referencing to the picture who is in the list
 
  */
 

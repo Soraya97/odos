@@ -217,8 +217,7 @@ function getPicture(req, res, next) {
   Picture.findById(req.params.pictureId, function (err, picture) {
     if (err) {
       return next(err);
-    }
-    // } else if (!picture) {
+    } // else if (!picture) {
     //   return pictureNotFound(res, pictureId);
     // }
 
@@ -250,30 +249,30 @@ function authorizationUserPicture(req, res, next) {
  * getPicture: loads the picture corresponding to the ID in the URL path.
  * Responds with 404 Not Found if the ID is not valid or the picture doesn't exist.
  */
-function getPicture(req, res, next) {
-
-  const pictureId = req.params.id;
-  if (!ObjectId.isValid(pictureId)) {
-    return pictureNotFound(res, pictureId);
-  }
-
-  let query = Picture.findById(pictureId)
-  // Populate the picture if indicated in the "include" URL query parameter
-  if (utils.responseShouldInclude(req, 'picture')) {
-    query = query.populate('pictureId');
-  }
-
-  query.exec(function (err, picture) {
-    if (err) {
-      return next(err);
-    } else if (!picture) {
-      return pictureNotFound(res, pictureId);
-    }
-
-    req.picture = picture;
-    next();
-  });
-}
+// function getPicture(req, res, next) {
+//
+//   const pictureId = req.params.id;
+//   if (!ObjectId.isValid(pictureId)) {
+//     return pictureNotFound(res, pictureId);
+//   }
+//
+//   let query = Picture.findById(pictureId)
+//   // Populate the picture if indicated in the "include" URL query parameter
+//   if (utils.responseShouldInclude(req, 'picture')) {
+//     query = query.populate('pictureId');
+//   }
+//
+//   query.exec(function (err, picture) {
+//     if (err) {
+//       return next(err);
+//     } else if (!picture) {
+//       return pictureNotFound(res, pictureId);
+//     }
+//
+//     req.picture = picture;
+//     next();
+//   });
+// }
 
 /**
  * Responds with 404 Not Found and a message indicating that the movie with the specified ID was not found.

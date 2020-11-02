@@ -15,52 +15,7 @@ const config = require('../config');
 after(mongoose.disconnect);
 beforeEach(cleanUpDatabase);
 
-describe('POST /users', function() {
-  it('should create a user', async function() {
-
-    // Make A POST request on /users
-    const res = await supertest(app)
-      .post('/users')
-      .send({
-        username: 'Pomme',
-        email: 'gateau@gmail.com',
-        password: 'Tre$B0n'
-      })
-      .expect(200)
-      .expect('Content-Type', /json/);
-
-    // Check that the response body is a JSON object with exactly the properties we expect.
-    expect(res.body).to.be.an('object');
-    expect(res.body._id).to.be.a('string');
-    expect(res.body.username).to.equal('Pomme');
-    expect(res.body.email).to.equal('gateau@gmail.com');
-    expect(res.body).to.have.all.keys('_id', 'username', 'email', 'registrationDate');
-  });
-});
-
-// describe('POST /users', function() {
-//   it('should not create a user', async function() {
-//
-//     // Make A POST request on /users
-//     const res = await supertest(app)
-//       .post('/users')
-//       .send({
-//         username: 'pomme',
-//         email: 'gateau@gmail',
-//         password: 'Tre$B0n'
-//       })
-//       .expect(422)
-//       .expect('Content-Type', /json/);
-//
-//     // Check that the response body is a JSON object with exactly the properties we expect.
-//     expect(res.body).to.be.an('object');
-//     expect(res.body._id).to.be.a('string');
-//     expect(res.body.username).to.equal('pomme');
-//     expect(res.body.email).to.equal('gateau@gmail');
-//     expect(res.body).to.have.all.keys('_id', 'username', 'email', 'registrationDate');
-//   });
-// });
-
+// Retrieve list of users
 describe('GET /users', function() {
   let user;
   beforeEach(async function() {
@@ -108,6 +63,55 @@ describe('GET /users', function() {
     expect(res.body[1]).to.have.all.keys('_id', 'username', 'email', 'registrationDate');
   });
 });
+
+// Creation of an user
+describe('POST /users', function() {
+  it('should create a user', async function() {
+
+    // Make A POST request on /users
+    const res = await supertest(app)
+      .post('/users')
+      .send({
+        username: 'Pomme',
+        email: 'gateau@gmail.com',
+        password: 'Tre$B0n'
+      })
+      .expect(200)
+      .expect('Content-Type', /json/);
+
+    // Check that the response body is a JSON object with exactly the properties we expect.
+    expect(res.body).to.be.an('object');
+    expect(res.body._id).to.be.a('string');
+    expect(res.body.username).to.equal('Pomme');
+    expect(res.body.email).to.equal('gateau@gmail.com');
+    expect(res.body).to.have.all.keys('_id', 'username', 'email', 'registrationDate');
+  });
+});
+
+describe('POST /users', function() {
+  it('should not create a user', async function() {
+
+    // Make A POST request on /users
+    const res = await supertest(app)
+      .post('/users')
+      .send({
+        username: 'Pomme',
+        email: 'gateau@gmail',
+        password: 'Tre$B0n'
+      })
+      .expect(422)
+      .expect('Content-Type', /json/);
+
+    // Check that the response body is a JSON object with exactly the properties we expect.
+    expect(res.body).to.be.an('object');
+    expect(res.body.message).to.equal('User validation failed: email: is invalid');
+    // expect(res.body.username).to.equal('pomme');
+    // expect(res.body.email).to.equal('gateau@gmail');
+    expect(res.body).to.have.all.keys('message');
+  });
+});
+
+
 
 function generateValidToken(user) {
   const exp = (new Date().getTime() + 7 * 24 * 3600 * 1000) / 1000;
