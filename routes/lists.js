@@ -364,8 +364,6 @@ function authorization(req, res, next) {
 
  /**
  * @apiDefine ListIncludes
- * @apiParam (URL query parameters) {String} [include] Embed linked resources in the response body:
- * * `"name"` for the list's name
  */
 
 /**
