@@ -10,7 +10,7 @@ const utils = require('./utils');
 const webSocket = require('../websocket/dispatcher');
 
 /**
- * @api {get} /users List users
+ * @api {get} /users Retrieve all users
  * @apiName RetrieveUsers
  * @apiGroup User
  * @apiVersion 1.0.0
