@@ -69,9 +69,9 @@ describe('GET /users/:userId/pictures', function() {
     // Create 2 users before retrieving the list.
     user = await (
       User.create({
-        username: 'Pomme1',
-        email: 'gateau1@gmail.com',
-        password: 'Tre$B0n'
+        username: 'Pomme',
+        email: 'gateau@gmail.com',
+        password: 'Tre$B0ns'
       })
     );
   });
@@ -123,7 +123,7 @@ describe('GET /users/:userId/pictures', function() {
     expect(res.body[0].location.coordinates[0]).to.equal(48.862725);
     expect(res.body[0].location.coordinates[1]).to.equal(2.287592);
     expect(res.body[0].picture).to.equal('https://source.unsplash.com/random');
-    expect(res.body[0]).to.have.all.keys('id', 'description', 'location', 'picture', 'creation_date', 'last_mod_date', 'userId');¨¨
+    expect(res.body[0]).to.have.all.keys('id', 'description', 'location', 'picture', 'creation_date', 'last_mod_date', 'userId');
 
     expect(res.body[1]).to.be.an('object');
     expect(res.body[1].id).to.be.a('string');
