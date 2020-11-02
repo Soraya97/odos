@@ -16,7 +16,6 @@ const List = require('../models/list');
 
 
 // ------ RESOURCES ODOS ------
-
 /* GET pictures listing. */
 router.get('/', utils.authenticate, authorization, function (req, res, next) {
   Picture
