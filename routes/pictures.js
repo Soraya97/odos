@@ -112,8 +112,13 @@ router.get('/pictures', function (req, res, next) {
 
 
 /* GET pictures listing. */
-router.get('/', function (req, res, next) {
-  Picture.find().sort('picture').exec(function (err, pictures) {
+router.get('/', utils.authenticate, authorization, function (req, res, next) {
+  Picture
+  .find({
+    userId: req.currentUserId
+  })
+  .sort('picture')
+  .exec(function (err, pictures) {
     if (err) {
       return next(err);
     }
@@ -123,7 +128,7 @@ router.get('/', function (req, res, next) {
 
 
 /* GET one specific picture */
-router.get('/:pictureId', getPicture, function (req, res, next) {
+router.get('/:pictureId', utils.authenticate, getPicture, authorizationUserPicture, function (req, res, next) {
   res.send(req.picture);
 });
 
@@ -145,7 +150,7 @@ router.get('/:pictureId', getPicture, function (req, res, next) {
  */
 
 /* POST new picture */
-router.post('/', getPicture, function (req, res, next) {
+router.post('/', utils.authenticate, authorization, getPicture, function (req, res, next) {
   // Retrieve the user ID from the URL.
   const user = req.params.userId;
   // Create a new picture from the JSON in the request body
@@ -164,7 +169,7 @@ router.post('/', getPicture, function (req, res, next) {
 
 
 //   /* PATCH one picture */
-router.patch('/:pictureId', utils.authenticate, getPicture, function (req, res, next) {
+router.patch('/:pictureId', utils.authenticate, getPicture, authorizationUserPicture, function (req, res, next) {
   // res.send(req.picture.name);
   // Update all properties (regardless of whether they are in the request body or not)
   if (req.body.description !== undefined) {
@@ -190,7 +195,7 @@ router.patch('/:pictureId', utils.authenticate, getPicture, function (req, res, 
 
 
 ///* DELETE one picture */
-router.delete('/:pictureId', utils.authenticate, getPicture, function (req, res, next) {
+router.delete('/:pictureId', utils.authenticate, getPicture, authorizationUserPicture, function (req, res, next) {
   req.picture.remove(function (err) {
     if (err) {
       return next(err);
@@ -220,6 +225,24 @@ function getPicture(req, res, next) {
     req.picture = picture;
     next();
   });
+}
+
+// Authorization to do something with the id of user in the param
+function authorization(req, res, next) {
+  // Authorization
+  if (req.currentUserId != req.params.userId) {
+    return res.status(403).send("You're not allowed to do that")
+  }
+  next();
+}
+
+// Authorization to do something with the id of user in the param and the id of the user on the picture
+function authorizationUserPicture(req, res, next) {
+  // Authorization
+  if (req.currentUserId != req.params.userId || req.currentUserId != req.picture.userId) {
+    return res.status(403).send("You're not allowed to do that")
+  }
+  next();
 }
 
 module.exports = router;
