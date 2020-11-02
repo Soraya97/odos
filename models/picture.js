@@ -45,10 +45,6 @@ const pictureSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-  },
-  listId: {
-    type: Schema.Types.ObjectId,
-    ref: 'List',
   }
 });
 
@@ -61,7 +57,7 @@ pictureSchema.set('toJSON', {
   virtuals: true // Include virtual properties when serializing documents to JSON
 });
 
-//  FUNCTIONS 
+//  FUNCTIONS
 /**
  * Validate a GeoJSON coordinates array (longitude, latitude and optional altitude).
  */
@@ -83,4 +79,3 @@ function transformJsonPicture(doc, json, options) {
 
 // Create the model from the schema and export it
 module.exports = mongoose.model('Pictures', pictureSchema);
-

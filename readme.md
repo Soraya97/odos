@@ -45,9 +45,9 @@ Application for sharing geotagged travel photos with favorites list function.
 
 ### Pictures of places
 
+- see the feed: http://odos.herokuapp.com/feed GET
 - add one picture: http://odos.herokuapp.com/pictures POST
 - see one picture: http://odos.herokuapp.com/pictures/:pictureId GET
-- see the feed: http://odos.herokuapp.com/pictures GET
 - delete one picture: http://odos.herokuapp.com/pictures/:pictureId DELETE
 - modify one picture: http://odos.herokuapp.com/pictures/:pictureId PUT
 
