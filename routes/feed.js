@@ -39,22 +39,22 @@ router.get('/pictures', function (req, res, next) {
         $lookup: {
           from: 'lists',
           localField: '_id',
-          foreignField: 'pictureId',
-          as: 'listedPicture'
+          foreignField: 'listId',
+          as: 'listedPictures'
         }
       },
       {
         $unwind:
         {
-          path: "$listedPicture",
+          path: "$listedPictures",
           preserveNullAndEmptyArrays: true
         }
       },
       {
         $addFields: {
-          listedPicture: {
+          listedPictures: {
             $cond: {
-              if: '$listedPicture',
+              if: '$listedPictures',
               then: 1,
               else: 0
             }
@@ -64,12 +64,10 @@ router.get('/pictures', function (req, res, next) {
       {
         $group: {
           _id: '$_id',
-          description: { $first: '$description' },
-          location: { $first: '$location' },
-          picture: { $first: '$picture' },
-          creation_date: { $first: '$creation_date' },
-          last_mod_date: { $first: '$last_mod_date' },
-          listedPicture: { $sum: '$listedPicture' }
+          name: { $first: '$name' },
+          creationDate: { $first: '$creationDate' },
+          modificationDate: { $first: '$modificationDate' },
+          listedPictures: { $sum: '$listedPictures' }
         }
       },
       {
@@ -102,7 +100,7 @@ router.get('/pictures', function (req, res, next) {
         const serialized = new Picture(picture).toJSON();
 
         // Add the aggregated property.
-        serialized.listedPicture = picture.listedPicture;
+        serialized.listedPictures = picture.listedPictures;
 
         return serialized;
       }));
