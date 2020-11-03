@@ -20,3 +20,4 @@ exports.secretKey = process.env.SECRET_KEY || 'changeme';
 //       throw new Error('Environment variable $PORT must be a valid port number');
 //     }
 //   }
+exports.baseUrl = process.env.BASE_URL || `http://localhost:${exports.port}`;
