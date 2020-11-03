@@ -79,12 +79,12 @@ describe('GET /users/:userId/lists', function() {
     expect(res.body[0]).to.be.an('object');
     expect(res.body[0]._id).to.be.a('string');
     expect(res.body[0].name).to.equal('First list');
-    expect(res.body[0]).to.have.all.keys('_id', 'name', 'creationDate', 'modificationDate', 'user', 'picture', 'public', '__v');
+    expect(res.body[0]).to.have.all.keys('_id', 'name', 'creationDate', 'modificationDate', 'user', 'picture', 'public');
 
     expect(res.body[1]).to.be.an('object');
     expect(res.body[1]._id).to.be.a('string');
     expect(res.body[1].name).to.equal('Second list');
-    expect(res.body[1]).to.have.all.keys('_id', 'name', 'creationDate', 'modificationDate', 'user', 'picture', 'public', '__v');
+    expect(res.body[1]).to.have.all.keys('_id', 'name', 'creationDate', 'modificationDate', 'user', 'picture', 'public');
   });
 });
 
@@ -134,7 +134,7 @@ describe('POST /users/:userId/lists', function() {
     expect(res.body).to.be.an('object');
     expect(res.body._id).to.be.a('string');
     expect(res.body.name).to.equal('Pomme');
-    expect(res.body).to.have.all.keys('_id', 'name', 'creationDate', 'modificationDate', 'user', 'picture', 'public', '__v');
+    expect(res.body).to.have.all.keys('_id', 'name', 'creationDate', 'modificationDate', 'user', 'picture', 'public');
   });
 });
 
