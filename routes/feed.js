@@ -44,9 +44,9 @@ router.get('/', function(req, res, next) {
     // Add the Link header to the response
     utils.addLinkHeader('/api/pictures', page, pageSize, total, res);
 
-    // Populate the directorId if indicated in the "include" URL query parameter
-    if (utils.responseShouldInclude(req, 'director')) {
-      query = query.populate('directorId');
+    // Populate the userId if indicated in the "include" URL query parameter
+    if (utils.responseShouldInclude(req, 'user')) {
+      query = query.populate('userId');
     }
 
     // Execute the query
@@ -54,6 +54,10 @@ router.get('/', function(req, res, next) {
       if (err) {
         return next(err);
       }
+
+      // Websocket
+      const nbPictures = pictures.length;
+      webSocket.nbPictures(nbPictures);
 
       res.send(pictures);
     });
@@ -64,11 +68,11 @@ function queryPictures(req) {
 
   let query = Picture.find();
 
-  if (Array.isArray(req.query.directorId)) {
-    const directors = req.query.directorId.filter(ObjectId.isValid);
-    query = query.where('directorId').in(directors);
-  } else if (ObjectId.isValid(req.query.directorId)) {
-    query = query.where('directorId').equals(req.query.directorId);
+  if (Array.isArray(req.query.userId)) {
+    const users = req.query.userId.filter(ObjectId.isValid);
+    query = query.where('userId').in(users);
+  } else if (ObjectId.isValid(req.query.userId)) {
+    query = query.where('userId').equals(req.query.userId);
   }
 
   if (!isNaN(req.query.rating)) {
