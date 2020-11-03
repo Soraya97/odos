@@ -38,27 +38,27 @@ Application for sharing geotagged travel photos with favorites list function.
 
 ### User
 
-- see my user account: http://odos.herokuapp.com/users/:userId GET
-- add one user: http://odos.herokuapp.com/users POST
-- modify one user: http://odos.herokuapp.com/users/:userId PATCH
-- delete one user: http://odos.herokuapp.com/users/:userId DELETE
+- see my user account: http://odos-archioweb.herokuapp.com/users/:userId GET
+- add one user: http://odos-archioweb.herokuapp.com/users POST
+- modify one user: http://odos-archioweb.herokuapp.com/users/:userId PATCH
+- delete one user: http://odos-archioweb.herokuapp.com/users/:userId DELETE
 
 ### Pictures of places
 
-- see the feed: http://odos.herokuapp.com/feed GET
-- add one picture: http://odos.herokuapp.com/pictures POST
-- see one picture: http://odos.herokuapp.com/pictures/:pictureId GET
-- delete one picture: http://odos.herokuapp.com/pictures/:pictureId DELETE
-- modify one picture: http://odos.herokuapp.com/pictures/:pictureId PUT
+- see the feed: http://odos-archioweb.herokuapp.com/feed GET
+- add one picture: http://odos-archioweb.herokuapp.com/users/:userId/pictures POST
+- see one picture: http://odos-archioweb.herokuapp.com/users/:userId/pictures/:pictureId GET
+- delete one picture: http://odos-archioweb.herokuapp.com/users/:userId/pictures/:pictureId DELETE
+- modify one picture: http://odos-archioweb.herokuapp.com/users/:userId/pictures/:pictureId PATCH
 
 ### Favorites
 
-- add one list: http://odos.herokuapp.com/users/userId/lists POST
-- see all my favorites lists: http://odos.herokuapp.com/users/:userId/lists GET
-- see one list: http://odos.herokuapp.com/users/:userId/lists/:listId GET
-- modify one list: http://odos.herokuapp.com/users/:userId/lists/:listId PATCH
-- delete one list: http://odos.herokuapp.com/users/:userId/lists/:listId DELETE
-- delete a photo from a list: http://odos.herokuapp.com/users/:userId/lists/:listId/picture/:pictureId DELETE
+- add one list: http://odos-archioweb.herokuapp.com/users/userId/lists POST
+- see all my favorites lists: http://odos-archioweb.herokuapp.com/users/:userId/lists GET
+- see one list: http://odos-archioweb.herokuapp.com/users/:userId/lists/:listId GET
+- modify one list: http://odos-archioweb.herokuapp.com/users/:userId/lists/:listId PATCH
+- delete one list: http://odos-archioweb.herokuapp.com/users/:userId/lists/:listId DELETE
+- delete a photo from a list: http://odos-archioweb.herokuapp.com/users/:userId/lists/:listId/picture/:pictureId DELETE
 
 ## Real-time API
 
