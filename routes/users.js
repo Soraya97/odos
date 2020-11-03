@@ -140,7 +140,7 @@ router.post('/', function(req, res, next) {
       }
       debug(`New user "${savedUser.username}"`);
       // Send the saved document in the response
-      res.send(savedUser);
+      res.status(201).send(savedUser);
     });
   });
 });

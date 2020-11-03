@@ -301,11 +301,10 @@ function getList(req, res, next) {
   //   return listNotFound(res, listId);
   // }
   // get the list by id
-  List.findById(req.params.listId, function(err, list) {
+  List.findById(listId, function(err, list) {
     if (err) {
       return next(err);
-    }
-    // } else if (!list) {
+    } // else if (!list) {
     //   return listNotFound(res, listId);
     // }
 

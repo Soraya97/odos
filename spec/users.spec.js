@@ -76,7 +76,7 @@ describe('POST /users', function() {
         email: 'gateau@gmail.com',
         password: 'Tre$B0n'
       })
-      .expect(200)
+      .expect(201)
       .expect('Content-Type', /json/);
 
     // Check that the response body is a JSON object with exactly the properties we expect.

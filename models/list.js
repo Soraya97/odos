@@ -35,7 +35,6 @@ function transformJsonList(doc, json, options) {
   return json;
 }
 
-listSchema.plugin(uniqueValidator, { message: 'List name {VALUE} already exists' });
-
 // Model for lists
 module.exports = mongoose.model('List', listSchema);
+listSchema.plugin(uniqueValidator, { message: 'List name {VALUE} already exists' });

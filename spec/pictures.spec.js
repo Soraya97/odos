@@ -16,51 +16,6 @@ const config = require('../config');
 after(mongoose.disconnect);
 beforeEach(cleanUpDatabase);
 
-// Creation of a picture
-describe('POST /users/:userId/pictures', function() {
-  let user;
-  beforeEach(async function() {
-    // Create 2 users before retrieving the list.
-    user = await (
-      User.create({
-        username: 'Pomme1',
-        email: 'gateau1@gmail.com',
-        password: 'Tre$B0n'
-      })
-    );
-  });
-
-  it('should create a picture', async function() {
-    const userId = user._id;
-    const token = await generateValidToken(user);
-    // Make A POST request on /users
-    const res = await supertest(app)
-      .post(`/users/${userId}/pictures`)
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        description: "First picture",
-        location: {
-          type: "Point",
-          coordinates: [48.862725, 2.287592]
-        },
-        picture: "https://source.unsplash.com/random"
-      })
-      .expect(201)
-      .expect('Content-Type', /json/);
-
-    // Check that the response body is a JSON object with exactly the properties we expect.
-    expect(res.body).to.be.an('object');
-    expect(res.body.id).to.be.a('string');
-    expect(res.body.description).to.equal('First picture');
-    expect(res.body.location.type).to.equal('Point');
-    expect(res.body.location.coordinates).to.be.an('array');
-    expect(res.body.location.coordinates[0]).to.equal(48.862725);
-    expect(res.body.location.coordinates[1]).to.equal(2.287592);
-    expect(res.body.picture).to.equal('https://source.unsplash.com/random');
-    expect(res.body).to.have.all.keys('id', 'description', 'location', 'picture', 'creation_date', 'last_mod_date', 'userId');
-  });
-});
-
 // Retrieve list of pictures
 describe('GET /users/:userId/pictures', function() {
 
@@ -134,6 +89,51 @@ describe('GET /users/:userId/pictures', function() {
     expect(res.body[1].location.coordinates[1]).to.equal(2.287593);
     expect(res.body[1].picture).to.equal('https://source.unsplash.com/random2');
     expect(res.body[1]).to.have.all.keys('id', 'description', 'location', 'picture', 'creation_date', 'last_mod_date', 'userId');
+  });
+});
+
+// Creation of a picture
+describe('POST /users/:userId/pictures', function() {
+  let user;
+  beforeEach(async function() {
+    // Create 2 users before retrieving the list.
+    user = await (
+      User.create({
+        username: 'Pomme1',
+        email: 'gateau1@gmail.com',
+        password: 'Tre$B0n'
+      })
+    );
+  });
+
+  it('should create a picture', async function() {
+    const userId = user._id;
+    const token = await generateValidToken(user);
+    // Make A POST request on /users
+    const res = await supertest(app)
+      .post(`/users/${userId}/pictures`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        description: "First picture",
+        location: {
+          type: "Point",
+          coordinates: [48.862725, 2.287592]
+        },
+        picture: "https://source.unsplash.com/random"
+      })
+      .expect(201)
+      .expect('Content-Type', /json/);
+
+    // Check that the response body is a JSON object with exactly the properties we expect.
+    expect(res.body).to.be.an('object');
+    expect(res.body.id).to.be.a('string');
+    expect(res.body.description).to.equal('First picture');
+    expect(res.body.location.type).to.equal('Point');
+    expect(res.body.location.coordinates).to.be.an('array');
+    expect(res.body.location.coordinates[0]).to.equal(48.862725);
+    expect(res.body.location.coordinates[1]).to.equal(2.287592);
+    expect(res.body.picture).to.equal('https://source.unsplash.com/random');
+    expect(res.body).to.have.all.keys('id', 'description', 'location', 'picture', 'creation_date', 'last_mod_date', 'userId');
   });
 });
 
