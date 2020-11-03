@@ -49,7 +49,7 @@ const pictureSchema = new Schema({
 });
 
 // Create a geospatial index on the location property.
-pictureSchema.index({ geolocation: '2dsphere' });
+pictureSchema.index({ location: '2dsphere' });
 
 // Customize the behavior of user.toJSON() (called when using res.send)
 pictureSchema.set('toJSON', {
