@@ -16,12 +16,14 @@ const config = require('../config');
 after(mongoose.disconnect);
 beforeEach(cleanUpDatabase);
 
-// Retrieve list of pictures
+// Retrieve list of pictures of someone
 describe('GET /users/:userId/pictures', function() {
 
   let user;
+  let picture;
+
   beforeEach(async function() {
-    // Create 2 users before retrieving the list.
+    // Create a user
     user = await (
       User.create({
         username: 'Pomme',
@@ -29,11 +31,9 @@ describe('GET /users/:userId/pictures', function() {
         password: 'Tre$B0ns'
       })
     );
-  });
 
-  let picture;
-  beforeEach(async function() {
-    // Create 2 users before retrieving the list.
+    // Create 2 pictures
+    const userId = user._id;
     const pictures = await Promise.all([
       Picture.create({
         description: "First picture",
@@ -41,7 +41,8 @@ describe('GET /users/:userId/pictures', function() {
           type: "Point",
           coordinates: [48.862725, 2.287592]
         },
-        picture: "https://source.unsplash.com/random"
+        picture: "https://source.unsplash.com/random",
+        userId: `${userId}`
       }),
       Picture.create({
         description: "Second picture",
@@ -49,12 +50,10 @@ describe('GET /users/:userId/pictures', function() {
           type: "Point",
           coordinates: [48.862726, 2.287593]
         },
-        picture: "https://source.unsplash.com/random2"
+        picture: "https://source.unsplash.com/random2",
+        userId: `${userId}`
       })
     ]);
-
-    // Retrieve a user to authenticate as.
-    picture = pictures[0];
   });
 
   it('should retrieve the list of pictures', async function() {
@@ -70,6 +69,7 @@ describe('GET /users/:userId/pictures', function() {
     expect(res.body).to.be.an('array');
     expect(res.body).to.have.lengthOf(2);
 
+    // Check that the response body is a JSON object with exactly the properties we expect.
     expect(res.body[0]).to.be.an('object');
     expect(res.body[0].id).to.be.a('string');
     expect(res.body[0].description).to.equal('First picture');
@@ -96,7 +96,7 @@ describe('GET /users/:userId/pictures', function() {
 describe('POST /users/:userId/pictures', function() {
   let user;
   beforeEach(async function() {
-    // Create 2 users before retrieving the list.
+    // Create a user
     user = await (
       User.create({
         username: 'Pomme1',
@@ -137,6 +137,7 @@ describe('POST /users/:userId/pictures', function() {
   });
 });
 
+// Generate a token for authentication
 function generateValidToken(user) {
   const exp = (new Date().getTime() + 7 * 24 * 3600 * 1000) / 1000;
   const payload = {

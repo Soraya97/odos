@@ -235,7 +235,7 @@ router.delete('/:id', getUser, utils.authenticate, function(req, res, next) {
     }
 
     // debug(`Deleted user "${req.user.username}"`);
-    res.send(`"${req.user.username}" deleted`).sendStatus(204);
+    res.sendStatus(204);
   });
 });
 

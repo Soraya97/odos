@@ -11,17 +11,89 @@ const jwt = require('jsonwebtoken');
 const app = require('../app');
 const User = require('../models/user');
 const Picture = require('../models/picture');
-const List = require('../models/picture');
+const List = require('../models/list');
 const config = require('../config');
 
 after(mongoose.disconnect);
 beforeEach(cleanUpDatabase);
 
+// Retrieve list of lists
+describe('GET /users/:userId/lists', function() {
+
+  let user;
+  let picture;
+  beforeEach(async function() {
+    // Create a user
+    user = await (
+      User.create({
+        username: 'Pomme',
+        email: 'gateau@gmail.com',
+        password: 'Tre$B0ns'
+      })
+    );
+
+// Create a picture
+    const userId = user._id;
+    picture = await (
+      Picture.create({
+        description: "First picture",
+        location: {
+          type: "Point",
+          coordinates: [48.862725, 2.287592]
+        },
+        picture: "https://source.unsplash.com/random",
+        userId: `${userId}`
+      })
+    );
+
+    // Create 2 lists
+    const pictureId = picture.id;
+    const lists = await Promise.all([
+      List.create({
+        name: "First list",
+        picture: `${pictureId}`,
+        user: `${userId}`
+      }),
+      List.create({
+        name: "Second list",
+        user: `${userId}`
+      })
+    ]);
+
+  });
+
+  it('should retrieve the list of lists', async function() {
+    const userId = user._id;
+    const token = await generateValidToken(user);
+
+    const res = await supertest(app)
+      .get(`/users/${userId}/lists`)
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200)
+      .expect('Content-Type', /json/);
+
+    expect(res.body).to.be.an('array');
+    expect(res.body).to.have.lengthOf(2);
+
+    // Check that the response body is a JSON object with exactly the properties we expect
+    expect(res.body[0]).to.be.an('object');
+    expect(res.body[0]._id).to.be.a('string');
+    expect(res.body[0].name).to.equal('First list');
+    expect(res.body[0]).to.have.all.keys('_id', 'name', 'creationDate', 'modificationDate', 'user', 'picture', 'public', '__v');
+
+    expect(res.body[1]).to.be.an('object');
+    expect(res.body[1]._id).to.be.a('string');
+    expect(res.body[1].name).to.equal('Second list');
+    expect(res.body[1]).to.have.all.keys('_id', 'name', 'creationDate', 'modificationDate', 'user', 'picture', 'public', '__v');
+  });
+});
+
 // Creation of a list
 describe('POST /users/:userId/lists', function() {
   let user;
+  let picture;
   beforeEach(async function() {
-    // Create 2 users before retrieving the list.
+    // Create a user
     user = await (
       User.create({
         username: 'Pomme',
@@ -29,11 +101,8 @@ describe('POST /users/:userId/lists', function() {
         password: 'Tre$B0n'
       })
     );
-  });
 
-  let picture;
-  beforeEach(async function() {
-    // Create 2 users before retrieving the list.
+    // Create a picture
     picture = await (
       Picture.create({
         description: "First picture",
@@ -50,7 +119,7 @@ describe('POST /users/:userId/lists', function() {
     const userId = user._id;
     const pictureId = picture._id;
     const token = await generateValidToken(user);
-    // Make A POST request on /users
+
     const res = await supertest(app)
       .post(`/users/${userId}/lists`)
       .set('Authorization', `Bearer ${token}`)
@@ -69,62 +138,7 @@ describe('POST /users/:userId/lists', function() {
   });
 });
 
-// Retrieve list of pictures
-// describe('GET /users/:userId/pictures', function() {
-//
-//   let user;
-//   beforeEach(async function() {
-//     // Create 2 users before retrieving the list.
-//     user = await (
-//       User.create({
-//         username: 'Pomme',
-//         email: 'gateau@gmail.com',
-//         password: 'Tre$B0ns'
-//       })
-//     );
-//   });
-//
-//   let list;
-//   beforeEach(async function() {
-//     // Create 2 users before retrieving the list.
-//     const lists = await Promise.all([
-//       List.create({
-//         name: "Firt list"
-//       }),
-//       List.create({
-//         name: "Second list"
-//       })
-//     ]);
-//
-//     // Retrieve a user to authenticate as.
-//     list = lists[0];
-//   });
-//
-//   it('should retrieve the list of pictures', async function() {
-//     const userId = user._id;
-//     const token = await generateValidToken(user);
-//
-//     const res = await supertest(app)
-//       .get(`/users/${userId}/pictures`)
-//       .set('Authorization', `Bearer ${token}`)
-//       .expect(200)
-//       .expect('Content-Type', /json/);
-//
-//     expect(res.body).to.be.an('array');
-//     expect(res.body).to.have.lengthOf(2);
-//
-//     expect(res.body[0]).to.be.an('object');
-//     expect(res.body[0].id).to.be.a('string');
-//     expect(res.body[1].name).to.equal('First list');
-//     expect(res.body).to.have.all.keys('_id', 'name', 'creationDate', 'modificationDate', 'user', 'picture', 'public', '__v');
-//
-//     expect(res.body[1]).to.be.an('object');
-//     expect(res.body[1].id).to.be.a('string');
-//     expect(res.body[1].name).to.equal('Second list');
-//     expect(res.body).to.have.all.keys('_id', 'name', 'creationDate', 'modificationDate', 'user', 'picture', 'public', '__v');
-//   });
-// });
-
+// Generate a token for authentication
 function generateValidToken(user) {
   const exp = (new Date().getTime() + 7 * 24 * 3600 * 1000) / 1000;
   const payload = {

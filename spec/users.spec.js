@@ -4,7 +4,8 @@ const {
 const supertest = require('supertest');
 const mongoose = require('mongoose');
 const {
-  cleanUpDatabase
+  cleanUpDatabase,
+  utils
 } = require('./utils');
 const jwt = require('jsonwebtoken');
 
@@ -19,7 +20,7 @@ beforeEach(cleanUpDatabase);
 describe('GET /users', function() {
   let user;
   beforeEach(async function() {
-    // Create 2 users before retrieving the list.
+    // Create 2 users
     const users = await Promise.all([
       User.create({
         username: 'Pomme1',
@@ -33,12 +34,11 @@ describe('GET /users', function() {
       })
     ]);
 
-    // Retrieve a user to authenticate as.
+    // Retrieve a user to authenticate as
     user = users[0];
   });
 
   it('should retrieve the list of users', async function() {
-
     const token = await generateValidToken(user);
 
     const res = await supertest(app)
@@ -68,7 +68,6 @@ describe('GET /users', function() {
 describe('POST /users', function() {
   it('should create a user', async function() {
 
-    // Make A POST request on /users
     const res = await supertest(app)
       .post('/users')
       .send({
@@ -88,10 +87,10 @@ describe('POST /users', function() {
   });
 });
 
+// Email constraint test
 describe('POST /users', function() {
   it('should not create a user', async function() {
 
-    // Make A POST request on /users
     const res = await supertest(app)
       .post('/users')
       .send({
@@ -105,14 +104,34 @@ describe('POST /users', function() {
     // Check that the response body is a JSON object with exactly the properties we expect.
     expect(res.body).to.be.an('object');
     expect(res.body.message).to.equal('User validation failed: email: is invalid');
-    // expect(res.body.username).to.equal('pomme');
-    // expect(res.body.email).to.equal('gateau@gmail');
     expect(res.body).to.have.all.keys('message');
   });
 });
 
+// Delete a user
+describe('DELETE /users', function() {
+  let user;
+  beforeEach(async function() {
+    user = await (
+      User.create({
+        username: 'Pomme',
+        email: 'gateau@gmail.com',
+        password: 'Tre$B0n'
+      })
+    );
+  });
 
+  it('should delete a user', async function() {
+    const token = await generateValidToken(user);
+    const userId = user._id;
+    const res = await supertest(app)
+      .delete(`/users/${userId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .expect(204)
+  });
+});
 
+// Generate a token for authentication
 function generateValidToken(user) {
   const exp = (new Date().getTime() + 7 * 24 * 3600 * 1000) / 1000;
   const payload = {
