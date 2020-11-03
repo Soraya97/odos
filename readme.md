@@ -46,10 +46,10 @@ Application for sharing geotagged travel photos with favorites list function.
 ### Pictures of places
 
 - see the feed: http://odos-archioweb.herokuapp.com/feed GET
-- add one picture: http://odos-archioweb.herokuapp.com/pictures POST
-- see one picture: http://odos-archioweb.herokuapp.com/pictures/:pictureId GET
-- delete one picture: http://odos-archioweb.herokuapp.com/pictures/:pictureId DELETE
-- modify one picture: http://odos-archioweb.herokuapp.com/pictures/:pictureId PUT
+- add one picture: http://odos-archioweb.herokuapp.com/users/:userId/pictures POST
+- see one picture: http://odos-archioweb.herokuapp.com/users/:userId/pictures/:pictureId GET
+- delete one picture: http://odos-archioweb.herokuapp.com/users/:userId/pictures/:pictureId DELETE
+- modify one picture: http://odos-archioweb.herokuapp.com/users/:userId/pictures/:pictureId PATCH
 
 ### Favorites
 
