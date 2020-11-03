@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user');
-const config = require('../config');
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const debug = require('debug')('demo:people');
+
+const User = require('../models/user');
+const ObjectId = mongoose.Types.ObjectId;
+
+const config = require('../config');
 const utils = require('./utils');
-
-
 
 /**
  * @api {get} /users Retrieve all users
@@ -77,11 +79,7 @@ router.get('/', function(req, res, next) {
  *       "registrationDate":"2020-10-27T13:19:32.249Z"
  *      }
  */
-router.get('/:id', getUser, utils.authenticate, function(req, res, next) {
-  // Check the authorization of the user. Is he authorized to check this thing ?
-  if (req.currentUserId != req.user._id) {
-    return res.status(403).send("You can't check someone else's data.")
-  }
+router.get('/:id', getUser, utils.authenticate, authorization, function(req, res, next) {
     res.send(req.user);
 
 });
@@ -178,11 +176,7 @@ router.post('/', function(req, res, next) {
  *       "registrationDate":"2020-10-27T13:19:32.249Z"
  *     }
  */
-router.patch('/:id', getUser, utils.authenticate, function(req, res, next) {
-  // Check the authorization of the user. Is he authorized to change this thing ?
-  if (req.currentUserId != req.user._id) {
-    return res.status(403).send("You can't change someone else's data.")
-  }
+router.patch('/:id', getUser, utils.authenticate, authorization, function(req, res, next) {
 
   if (req.body.username !== undefined) {
     req.user.username = req.body.username;
@@ -224,11 +218,8 @@ router.patch('/:id', getUser, utils.authenticate, function(req, res, next) {
  * @apiSuccessExample 204 No Content
  *     HTTP/1.1 204 No Content
  */
-router.delete('/:id', getUser, utils.authenticate, function(req, res, next) {
-  // Check the authorization of the user. Is he authorized to delete this thing?
-  if (req.currentUserId != req.user._id) {
-    return res.status(403).send("You can't delete another user.")
-  }
+router.delete('/:id', getUser, utils.authenticate, authorization, function(req, res, next) {
+
   req.user.remove(function(err) {
     if (err) {
       return next(err);
@@ -244,21 +235,32 @@ router.delete('/:id', getUser, utils.authenticate, function(req, res, next) {
 function getUser(req, res, next) {
   // get the id of the user by the param
   const id = req.params.id;
-  // if (!ObjectId.isValid(id)) {
-  //   return userNotFound(res, id);
-  // }
+  if (!ObjectId.isValid(id)) {
+    return userNotFound(res, id);
+  }
 
   // get the user by id
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
+    } else if (!user) {
+      return userNotFound(res, id);
     }
-    // } else if (!user) {
-    //   return userNotFound(res, id);
-    // }
     req.user = user;
     next();
   });
+}
+
+function userNotFound(res, userId) {
+  return res.status(404).type('text').send(`No user found with ID ${userId}`);
+}
+
+// Authorization to do something with the id of user in the param
+function authorization(req, res, next) {
+  if (req.currentUserId != req.user._id) {
+    return res.status(403).send("You're not allowed to do that")
+  }
+next();
 }
 
 /**

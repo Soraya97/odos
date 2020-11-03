@@ -296,24 +296,24 @@ router.delete('/:listId', utils.authenticate, getList, authorizationUserList, fu
 // Get the list by id
 function getList(req, res, next) {
   // get the id of the list by the param
-  const listId = req.params.listId;
-  // if (!ObjectId.isValid(listId)) {
-  //   return listNotFound(res, listId);
-  // }
+  const id = req.params.listId;
+  if (!ObjectId.isValid(id)) {
+    return listNotFound(res, id);
+  }
+
   // get the list by id
-  List.findById(listId, function(err, list) {
+  List.findById(req.params.listId, function(err, list) {
     if (err) {
       return next(err);
-    } // else if (!list) {
-    //   return listNotFound(res, listId);
-    // }
-
+    } else if (!list) {
+      return listNotFound(res, id);
+    }
     req.list = list;
     next();
   });
 }
 
-function listNotFound(res, pictureId) {
+function listNotFound(res, listId) {
   return res.status(404).type('text').send(`No list found with ID ${listId}`);
 }
 
