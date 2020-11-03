@@ -66,7 +66,7 @@ router.get('/pictures', function (req, res, next) {
           _id: '$_id',
           name: { $first: '$name' },
           creationDate: { $first: '$creationDate' },
-          modificationDate: { $first: '$ modificationDate' },
+          modificationDate: { $first: '$modificationDate' },
           listedPictures: { $sum: '$listedPictures' }
         }
       },
