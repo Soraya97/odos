@@ -10,6 +10,7 @@ exports.port = process.env.PORT || '3000';
 exports.bcryptCostFactor = 10;
 // On Heroku, must put a env. var. for the secret key (random caracters string)
 exports.secretKey = process.env.SECRET_KEY || 'changeme';
+exports.baseUrl = process.env.BASE_URL || `http://localhost:${exports.port}`;
 
 // Validate that port is a positive integer.
 // if (process.env.PORT) {
@@ -20,4 +21,3 @@ exports.secretKey = process.env.SECRET_KEY || 'changeme';
 //       throw new Error('Environment variable $PORT must be a valid port number');
 //     }
 //   }
-exports.baseUrl = process.env.BASE_URL || `http://localhost:${exports.port}`;

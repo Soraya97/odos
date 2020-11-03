@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { config, baseUrl } = require('../config');
+const config = require('../config');
 const formatLinkHeader = require('format-link-header');
-
-
 // A REPRENDRE PLUS TARD, POUR LES AUTORISATIONS
 // Route protections, not accessible until someone is authenticated
 // It uses the token
@@ -66,7 +64,7 @@ exports.getPaginationParameters = function(req) {
 exports.addLinkHeader = function(resourceHref, page, pageSize, total, res) {
 
   const links = {};
-  const url = baseUrl + resourceHref;
+  const url = config.baseUrl + resourceHref;
   const maxPage = Math.ceil(total / pageSize);
 
   // Add first & prev links if current page is not the first one
