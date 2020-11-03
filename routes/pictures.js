@@ -112,7 +112,7 @@ router.get('/:pictureId', utils.authenticate, getPicture, authorizationUserPictu
  *        "user":"5f981e64eeac3042b0e27b86","__v":0}
  *      }]
  */
-router.post('/', utils.authenticate, authorization, getPicture, function (req, res, next) {
+router.post('/', utils.authenticate, authorization, function (req, res, next) {
   // Retrieve the user ID from the URL.
   const user = req.params.userId;
   // Create a new picture from the JSON in the request body
