@@ -30,11 +30,17 @@ const listSchema = new Schema({
   public: { type: Boolean, default: false }
 });
 
+// Do not send the password in the response
+listSchema.set('toJSON', {
+   transform: transformJsonList
+});
+
 function transformJsonList(doc, json, options) {
   delete json.__v;
   return json;
 }
 
+listSchema.plugin(uniqueValidator, { message: 'List name {VALUE} already exists' });
+
 // Model for lists
 module.exports = mongoose.model('List', listSchema);
-listSchema.plugin(uniqueValidator, { message: 'List name {VALUE} already exists' });
