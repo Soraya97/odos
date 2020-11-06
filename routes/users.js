@@ -54,7 +54,7 @@ router.get('/', function(req, res, next) {
 });
 
 /**
- * @api {get} /users/:id Retrieve a user
+ * @api {get} /users/:userId Retrieve a user
  * @apiName RetrieveUser
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -144,7 +144,7 @@ router.post('/', function(req, res, next) {
 });
 
 /**
- * @api {patch} /users/:id Partially update an user
+ * @api {patch} /users/:userId Partially update an user
  * @apiName UpdateUser
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -203,7 +203,7 @@ router.patch('/:id', getUser, utils.authenticate, authorization, function(req, r
 
 
 /**
- * @api {delete} /users/:id Delete an user
+ * @api {delete} /users/:userId Delete an user
  * @apiName DeleteUser
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -265,7 +265,7 @@ next();
 
 /**
  * @apiDefine UserIdInUrlPath
- * @apiParam (URL path parameters) {String} id The unique identifier of the user to retrieve
+ * @apiParam (URL path parameters) {String} userId The unique identifier of the user to retrieve
  */
 
 /**
@@ -277,7 +277,7 @@ next();
 
 /**
  * @apiDefine UserInResponseBody
- * @apiSuccess (Response body) {String} id An Id which is referencing the user (eg: `5f981e64eeac3042b0e27b86`)
+ * @apiSuccess (Response body) {String} userId An Id which is referencing the user (eg: `5f981e64eeac3042b0e27b86`)
  * @apiSuccess (Response body) {String{/^[a-zA-Z0-9]+$/}} username The username of the user
  * @apiSuccess (Response body) {String{/\S+@\S+\.\S+/}} email The email of the user
  * @apiSuccess (Response body) {Date} registrationDate The date at which the user was created

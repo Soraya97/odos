@@ -1,7 +1,7 @@
 define({ "api": [
   {
     "type": "post",
-    "url": "/users/id/lists",
+    "url": "/users/:userId/lists",
     "title": "Create a list",
     "name": "CreateList",
     "group": "List",
@@ -124,6 +124,13 @@ define({ "api": [
             "optional": false,
             "field": "422/UnprocessableEntity",
             "description": "<p>Some of the List's properties are invalid</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -131,6 +138,11 @@ define({ "api": [
         {
           "title": "422 Unprocessable Entity",
           "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"name\": ValidatorError: List name Oarty already exists {\n      \"properties\": [Object],\n      \"kind\": \"unique\",\n      \"path\": \"name\",\n      \"value\": \"Party\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"List validation failed\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -184,13 +196,25 @@ define({ "api": [
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No List was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo List found with ID 5f98321aabf23b2cfce0fe76",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo list found with ID 5f98321aabf23b2cfce0fe76",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -244,13 +268,25 @@ define({ "api": [
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No List was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo List found with ID 5f98321aabf23b2cfce0fe76",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo list found with ID 5f98321aabf23b2cfce0fe76",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -397,18 +433,30 @@ define({ "api": [
             "optional": false,
             "field": "422/UnprocessableEntity",
             "description": "<p>Some of the List's properties are invalid</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo List found with ID 5f98321aabf23b2cfce0fe76",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo list found with ID 5f98321aabf23b2cfce0fe76",
           "type": "json"
         },
         {
           "title": "422 Unprocessable Entity",
           "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"name\": ValidatorError: List name Oarty already exists {\n      \"properties\": [Object],\n      \"kind\": \"unique\",\n      \"path\": \"name\",\n      \"value\": \"Party\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"List validation failed\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -516,13 +564,25 @@ define({ "api": [
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No List was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo List found with ID 5f98321aabf23b2cfce0fe76",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo list found with ID 5f98321aabf23b2cfce0fe76",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -617,13 +677,25 @@ define({ "api": [
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No List was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo List found with ID 5f98321aabf23b2cfce0fe76",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo list found with ID 5f98321aabf23b2cfce0fe76",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -1104,107 +1176,6 @@ define({ "api": [
     }
   },
   {
-    "type": "get",
-    "url": "/users/:userId/pictures",
-    "title": "Retrieve all pictures",
-    "name": "RetrievePictures",
-    "group": "Picture",
-    "version": "1.0.0",
-    "description": "<p>Retrieves a list of pictures</p>",
-    "examples": [
-      {
-        "title": "Example",
-        "content": "GET /users/5f981e64eeac3042b0e27b86/pictures HTTP/1.1",
-        "type": "json"
-      }
-    ],
-    "success": {
-      "examples": [
-        {
-          "title": "200 OK",
-          "content": "HTTP/1.1 200 OK\nContent-Type: application/json",
-          "type": "json"
-        }
-      ],
-      "fields": {
-        "Response body": [
-          {
-            "group": "Response body",
-            "type": "String",
-            "size": "3...50",
-            "optional": false,
-            "field": "description",
-            "description": "<p>The description of the picture (must be unique)</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "String",
-            "optional": false,
-            "field": "location",
-            "description": "<p>The location of the picture</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "Number",
-            "optional": false,
-            "field": "coordinates",
-            "description": "<p>Coordinates of the picture</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "String",
-            "optional": false,
-            "field": "picture",
-            "description": "<p>The url of the picture</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "Date",
-            "optional": false,
-            "field": "creation_date",
-            "description": "<p>The date of the picture's creation</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "Date",
-            "optional": false,
-            "field": "last_mod_date",
-            "description": "<p>The date at which the picture was modified</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "Schema.Types.ObjectId",
-            "optional": false,
-            "field": "userId",
-            "description": "<p>An Id who is referencing to the user who create the picture</p>"
-          }
-        ]
-      }
-    },
-    "filename": "routes/pictures.js",
-    "groupTitle": "Picture",
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
-            "field": "404/NotFound",
-            "description": "<p>No Picture was found corresponding to the ID in the URL path</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID ..",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
     "type": "post",
     "url": "/users",
     "title": "Create an user",
@@ -1221,6 +1192,13 @@ define({ "api": [
             "optional": false,
             "field": "id",
             "description": "<p>A unique identifier for the user generated by the server</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>An Id which is referencing the user (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
           },
           {
             "group": "Response body",
@@ -1316,7 +1294,7 @@ define({ "api": [
   },
   {
     "type": "delete",
-    "url": "/users/:id",
+    "url": "/users/:userId",
     "title": "Delete an user",
     "name": "DeleteUser",
     "group": "User",
@@ -1347,7 +1325,7 @@ define({ "api": [
             "group": "URL path parameters",
             "type": "String",
             "optional": false,
-            "field": "id",
+            "field": "userId",
             "description": "<p>The unique identifier of the user to retrieve</p>"
           }
         ]
@@ -1376,7 +1354,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/users/:id",
+    "url": "/users/:userId",
     "title": "Retrieve a user",
     "name": "RetrieveUser",
     "group": "User",
@@ -1403,7 +1381,7 @@ define({ "api": [
             "group": "Response body",
             "type": "String",
             "optional": false,
-            "field": "id",
+            "field": "userId",
             "description": "<p>An Id which is referencing the user (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
           },
           {
@@ -1441,7 +1419,7 @@ define({ "api": [
             "group": "URL path parameters",
             "type": "String",
             "optional": false,
-            "field": "id",
+            "field": "userId",
             "description": "<p>The unique identifier of the user to retrieve</p>"
           }
         ],
@@ -1506,7 +1484,7 @@ define({ "api": [
             "group": "Response body",
             "type": "String",
             "optional": false,
-            "field": "id",
+            "field": "userId",
             "description": "<p>An Id which is referencing the user (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
           },
           {
@@ -1573,7 +1551,7 @@ define({ "api": [
   },
   {
     "type": "patch",
-    "url": "/users/:id",
+    "url": "/users/:userId",
     "title": "Partially update an user",
     "name": "UpdateUser",
     "group": "User",
@@ -1600,7 +1578,7 @@ define({ "api": [
             "group": "Response body",
             "type": "String",
             "optional": false,
-            "field": "id",
+            "field": "userId",
             "description": "<p>An Id which is referencing the user (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
           },
           {
@@ -1638,7 +1616,7 @@ define({ "api": [
             "group": "URL path parameters",
             "type": "String",
             "optional": false,
-            "field": "id",
+            "field": "userId",
             "description": "<p>The unique identifier of the user to retrieve</p>"
           }
         ],
