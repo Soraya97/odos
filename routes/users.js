@@ -21,6 +21,7 @@ const utils = require('./utils');
  * @apiUse UserIncludes
  * @apiUse UserNotFoundError
  * @apiUse UserAuthorizationError
+ * @apiUse UserUnauthorizedError
  *
  * @apiExample Example
  *     GET /users HTTP/1.1
@@ -66,6 +67,7 @@ router.get('/', function(req, res, next) {
  * @apiUse UserIncludes
  * @apiUse UserNotFoundError
  * @apiUse UserAuthorizationError
+ * @apiUse UserUnauthorizedError
  *
  * @apiExample Example
  *     GET /users/5f981e64eeac3042b0e27b86 HTTP/1.1
@@ -98,6 +100,7 @@ router.get('/:userId', utils.getUser, utils.authenticate, authorization, functio
  * @apiUse UserInResponseBody
  * @apiUse UserValidationError
  * @apiUse UserAuthorizationError
+ * @apiUse UserUnauthorizedError
  *
  * @apiExample Example
  *     POST /users HTTP/1.1
@@ -158,6 +161,7 @@ router.post('/', function(req, res, next) {
  * @apiUse UserNotFoundError
  * @apiUse UserValidationError
  * @apiUse UserAuthorizationError
+ * @apiUse UserUnauthorizedError
  *
  * @apiExample Example
  *     PATCH /users/58b2926f5e1def0123e97bc0 HTTP/1.1
@@ -214,6 +218,7 @@ router.patch('/:userId', utils.getUser, utils.authenticate, authorization, funct
  * @apiUse UserIdInUrlPath
  * @apiUse UserNotFoundError
  * @apiUse UserAuthorizationError
+ * @apiUse UserUnauthorizedError
  *
  * @apiExample Example
  *     DELETE /users/5f981e64eeac3042b0e27b86 HTTP/1.1
@@ -314,4 +319,15 @@ next();
  *     You're not allowed to do that
  */
 
+  /**
+ * @apiDefine UserUnauthorizedError
+ *
+ * @apiError {Object} 401/Unauthorized You're not allowed to do that
+ *
+ * @apiErrorExample {json} 401 Unauthorized
+ *     HTTP/1.1 403 Forbidden
+ *     Content-Type: text/plain
+ *
+ *     You're not connected you don't have access
+ */
 module.exports = router;
