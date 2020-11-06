@@ -21,7 +21,7 @@ const List = require('../models/list');
 router.get('/', function (req, res, next) {
   Picture
   .find({
-    userId: req.currentUserId
+    userId: req.params.userId
   })
   .sort('picture')
   .exec(function (err, pictures) {

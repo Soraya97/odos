@@ -3,6 +3,7 @@ const router = express.Router({
   mergeParams: true
 });
 const List = require('../models/list');
+const Picture = require('../models/picture');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const debug = require('debug')('demo:lists');
@@ -48,6 +49,7 @@ const webSocket = require('../websocket/dispatcher');
  *        "user":"5f981e64eeac3042b0e27b86","__v":0}
  *     }]
  */
+
 router.get('/', utils.authenticate, authorization, function(req, res, next) {
   // Find the lists
   List
@@ -55,7 +57,7 @@ router.get('/', utils.authenticate, authorization, function(req, res, next) {
       user: req.currentUserId
     })
     // .populate('user')
-    // .populate('picture')
+    // .populate({ path: 'picture', model: Picture })
     .sort('name')
     .exec(function(err, lists) {
       if (err) {
