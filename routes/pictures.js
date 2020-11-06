@@ -20,7 +20,7 @@ const List = require('../models/list');
 
 /**
  * @api {get} /users/:userId/pictures Retrieve all pictures
- * @apiName RetrieveAllPictures 
+ * @apiName RetrieveAllPictures
  * @apiGroup Picture
  * @apiVersion 1.0.0
  * @apiDescription Retrieves a list of picture ordered by picture (in alphabetical order).

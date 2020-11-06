@@ -39,10 +39,15 @@ const List = require('../models/list');
  * @apiSuccess (Response body) {Date} last_mod_date The date at which the picture was modified
  * @apiSuccess (Response body) {Schema.Types.ObjectId} userId An Id which is referencing to the user who create the picture
  *
+<<<<<<< HEAD
  * @apiParam (URL query parameters) {Date} [min_date] Select only pictures before this specified date 
  * @apiParam (URL query parameters) {Date} [max_date] Select only pictures after this specified date 
  * @apiParam (URL query parameters) {Number} [page] Which page to display
  * @apiParam (URL query parameters) {Number} [pageSize] How many items per page to display
+=======
+ * @apiParam (URL query parameters) {Date} [min_date] Select only pictures before this specified date
+ * @apiParam (URL query parameters) {Date} [max_date] Select only pictures after this specified date
+>>>>>>> 6c9bb946b2ec18d6c8db4096faba3e32785aa062
  *
  * @apiExample Example
  *     GET /feed?page=1&pageSize=1 HTTP/1.1
