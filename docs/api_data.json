@@ -1,5 +1,106 @@
 [
   {
+    "type": "get",
+    "url": "/feed",
+    "title": "Feed of all pictures",
+    "name": "RetrieveFeed",
+    "group": "Feed",
+    "version": "1.0.0",
+    "description": "<p>Retrieves a paginated list of all pictures ordered by title (in alphabetical order).</p>",
+    "success": {
+      "fields": {
+        "Response body": [
+          {
+            "group": "Response body",
+            "type": "String",
+            "size": "3...50",
+            "optional": false,
+            "field": "description",
+            "description": "<p>The description of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "location",
+            "description": "<p>The location of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "coordinates",
+            "description": "<p>Coordinates of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>The url of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Date",
+            "optional": false,
+            "field": "creation_date",
+            "description": "<p>The date of the picture's creation</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Date",
+            "optional": false,
+            "field": "last_mod_date",
+            "description": "<p>The date at which the picture was modified</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Schema.Types.ObjectId",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>An Id which is referencing to the user who create the picture</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "200 OK",
+          "content": " HTTP/1.1 200 OK\n Content-Type: application/json\n Link: https://odos-archioweb.herokuapp.com/feed?page=1&pageSize=1;\"\n\n[\n   {\n     \"location\": {\n       \"type\": \"Point\",\n       \"coordinates\": [\n           48.862725,\n           2.287592\n       ]\n   },\n     \"description\": \"1 picture\",\n     \"picture\": \"https://source.unsplash.com/random\",\n     \"creation_date\": \"2020-11-04T14:36:46.995Z\",\n     \"last_mod_date\": \"2020-11-04T14:36:46.995Z\",\n     \"userId\": \"5fa198479bb5b63b249b06af\",\n     \"id\": \"5fa2bc7ec26b8d62e8e1b205\"\n  },\n  {\n     \"location\": {\n       \"type\": \"Point\",\n       \"coordinates\": [\n           48.862725,\n           2.287592\n       ]\n  },\n     \"description\": \"2 picture\",\n     \"picture\": \"https://source.unsplash.com/random\",\n     \"creation_date\": \"2020-11-03T18:33:09.438Z\",\n     \"last_mod_date\": \"2020-11-03T18:33:09.438Z\",\n     \"userId\": \"5fa198479bb5b63b249b06af\",\n     \"id\": \"5fa1a265b941dc1f4096ced3\"\n  }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "URL query parameters": [
+          {
+            "group": "URL query parameters",
+            "type": "Date",
+            "optional": true,
+            "field": "min_date",
+            "description": "<p>Select only pictures before this specified date</p>"
+          },
+          {
+            "group": "URL query parameters",
+            "type": "Date",
+            "optional": true,
+            "field": "max_date",
+            "description": "<p>Select only pictures after this specified date</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example",
+        "content": "GET /feed?page=1&pageSize=1 HTTP/1.1",
+        "type": "json"
+      }
+    ],
+    "filename": "routes/feed.js",
+    "groupTitle": "Feed"
+  },
+  {
     "type": "post",
     "url": "/users/:userId/lists",
     "title": "Create a list",
