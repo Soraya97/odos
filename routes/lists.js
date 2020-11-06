@@ -71,41 +71,67 @@ router.get('/', utils.getUser, utils.authenticate, authorization, function(req, 
 
       res.send(lists);
     });
+//   Picture.aggregate([{
+//       $lookup: {
+//         from: 'lists',
+//         localField: '_id',
+//         foreignField: 'picture',
+//         as: 'nbPictures'
+//       }
+//     },
+//     {
+//       $unwind: '$nbPictures'
+//     },
+//     {
+//       $group: {
+//         _id: '$_id',
+//         username: {
+//           $first: '$username'
+//         },
+//         nbPictures: {
+//           $sum: 1
+//         }
+//       }
+//     },
+//     {
+//       $sort: {
+//         username: 1
+//       }
+//     },
+//   ], (err, users) => {
+//     if (err) {
+//       return next(err);
+//     }
+//
+//     res.send(users.map(user => {
+//
+//       // Transform the aggregated object into a Mongoose model.
+//       const serialized = new Picture(user).toJSON();
+//
+//       // Add the aggregated property.
+//       serialized.nbPictures = user.nbPictures;
+//
+//       return serialized;
+//     }));
+// });
+  });
 
-  //   Picture.aggregate([
-  //     {
-  //       $lookup: {
-  //         from: 'pictures',
-  //         localField: '_id',
-  //         foreignField: 'userId',
-  //         as: 'nbPictures'
-  //       }
-  //     },
-  //     {
-  //       $unwind: '$nbPictures'
-  //     },
-  //       {
-  //       $group: {
-  //         _id: '$_id',
-  //         username: { $first: '$username' },
-  //         nbPictures: { $sum: 1}
-  //       }
-  //     },
-  //     {
-  //       $sort: {
-  //         username: 1
-  //       }
-  //     },
-  //   ],function (err, pictures) => {
-  //     if (err) {
-  //       return next(err);
-  //     }
-  //
-  //
-  //   const aggregatedDocuments = results.map(result => new Person(result));
-  //   res.send(aggregatedDocuments);
-  // });
-});
+
+/**
+ * Returns a Mongoose query that will retrieve people filtered with the URL query parameters.
+ */
+function queryLists(req) {
+
+  let query = List.find({
+    user: req.currentUserId
+  });
+
+  // if (typeof(req.query.gender) == 'string') {
+  //   query = query.where('gender').equals(req.query.gender);
+  // }
+
+  return query;
+}
 
 /**
  * @api {get} /users/:userId/lists/:listId Retrieve a list
@@ -120,7 +146,7 @@ router.get('/', utils.getUser, utils.authenticate, authorization, function(req, 
  * @apiUse ListNotFoundError
  * @apiUse UserAuthorizationError
  * @apiUse UserUnauthorizedError
- * 
+ *
  *
  * @apiExample Example
  *     GET /users/5f981e64eeac3042b0e27b86/lists/5f98321aabf23b2cfce0fe76 HTTP/1.1
@@ -161,7 +187,7 @@ router.get('/:listId', utils.authenticate, utils.getUser, getList, authorization
  * @apiGroup List
  * @apiVersion 1.0.0
  * @apiDescription Create a new list.
- * 
+ *
  * @apiParam (Request body) {String{minlength: 3}} name The name of the list (must be unique)
  * @apiParam (Request body) {Boolean{default: false}} public Make the list private or public
  * @apiParam (Request body) {Schema.Types.ObjectId} pictureId An id which is referencing to the picture which is in the list (eg: `5fa50ef8ab605f53789adb8c`)
@@ -407,7 +433,7 @@ function authorization(req, res, next) {
  * @apiDefine ListInResponseBody
  * @apiSuccess (Response body) {Boolean{default: false}} public Make the list private or public
  * @apiSuccess (Response body) {String} id An id which is referencing the list (eg: `5f98321aabf23b2cfce0fe76`)
- * @apiSuccess (Response body) {String} name The name of the list 
+ * @apiSuccess (Response body) {String} name The name of the list
  * @apiSuccess (Response body) {Date} creationDate The date at which the list was created
  * @apiSuccess (Response body) {Date} modificationDate The date at which the list was modified
  * @apiSuccess (Response body) {Schema.Types.ObjectId} userId An id which is referencing to the user who create the list
@@ -467,7 +493,7 @@ function authorization(req, res, next) {
  *     You're not allowed to do that
  */
 
- /**
+/**
  * @apiDefine UserUnauthorizedError
  *
  * @apiError {Object} 401/Unauthorized You're not allowed to do that

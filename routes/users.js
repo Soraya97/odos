@@ -81,7 +81,6 @@ router.get('/', function(req, res, next) {
  */
 router.get('/:userId', utils.getUser, utils.authenticate, authorization, function(req, res, next) {
   res.send(req.user);
-
 });
 
 
