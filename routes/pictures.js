@@ -17,6 +17,7 @@ const List = require('../models/list');
 
 
 // ------ RESOURCES ODOS ------
+<<<<<<< HEAD
 
 
 /**
@@ -71,9 +72,13 @@ const List = require('../models/list');
  *      }]
  */
 router.get('/', utils.authenticate, authorization, function (req, res, next) {
+=======
+/* GET pictures listing. */
+router.get('/', function (req, res, next) {
+>>>>>>> a3ed3780b8671c60fdf24301ac860c445283fd4f
   Picture
   .find({
-    userId: req.currentUserId
+    userId: req.params.userId
   })
   .sort('picture')
   .exec(function (err, pictures) {
@@ -121,7 +126,7 @@ router.get('/', utils.authenticate, authorization, function (req, res, next) {
  *        "id": "5fa50ef8ab605f53789adb8c"
  *      } 
  */
-router.get('/:pictureId', utils.authenticate, getPicture, authorizationUserPicture, function (req, res, next) {
+router.get('/:pictureId', getPicture, function (req, res, next) {
   res.send(req.picture);
 });
 
