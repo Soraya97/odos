@@ -201,7 +201,7 @@ router.patch('/:userId', utils.getUser, utils.authenticate, authorization, funct
           return next(err);
         }
 
-        // debug(`Updated user "${savedUser.username}"`);
+        debug(`Updated user "${savedUser.username}"`);
         res.send(savedUser);
       });
   })
@@ -212,7 +212,7 @@ router.patch('/:userId', utils.getUser, utils.authenticate, authorization, funct
       return next(err);
     }
 
-    // debug(`Updated user "${savedUser.username}"`);
+    debug(`Updated user "${savedUser.username}"`);
     res.send(savedUser);
   });
 });
@@ -243,7 +243,7 @@ router.delete('/:userId', utils.getUser, utils.authenticate, authorization, func
       return next(err);
     }
 
-    // debug(`Deleted user "${req.user.username}"`);
+    debug(`Deleted user "${req.user.username}"`);
     res.sendStatus(204);
   });
 });

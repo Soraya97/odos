@@ -39,8 +39,8 @@ const List = require('../models/list');
  * @apiSuccess (Response body) {Date} last_mod_date The date at which the picture was modified
  * @apiSuccess (Response body) {Schema.Types.ObjectId} userId An Id which is referencing to the user who create the picture
  *
- * @apiParam (URL query parameters) {Date} [min_date] Select only pictures before this specified date 
- * @apiParam (URL query parameters) {Date} [max_date] Select only pictures after this specified date 
+ * @apiParam (URL query parameters) {Date} [min_date] Select only pictures before this specified date
+ * @apiParam (URL query parameters) {Date} [max_date] Select only pictures after this specified date
  *
  * @apiExample Example
  *     GET /feed?page=1&pageSize=1 HTTP/1.1
@@ -137,9 +137,4 @@ function queryPictures(req) {
   return query;
 }
 
-<<<<<<< HEAD
-
 module.exports = router;
-=======
-module.exports = router;
->>>>>>> 0641f29b147e92f639221f285d5c07b1e0b5fa3b
