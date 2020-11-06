@@ -71,39 +71,39 @@ router.get('/', utils.authenticate, authorization, function(req, res, next) {
       res.send(lists);
     });
 
-    //   Picture.aggregate([
-    //     {
-    //       $lookup: {
-    //         from: 'pictures',
-    //         localField: '_id',
-    //         foreignField: 'userId',
-    //         as: 'nbPictures'
-    //       }
-    //     },
-    //     {
-    //       $unwind: '$nbPictures'
-    //     },
-    //       {
-    //       $group: {
-    //         _id: '$_id',
-    //         username: { $first: '$username' },
-    //         nbPictures: { $sum: 1}
-    //       }
-    //     },
-    //     {
-    //       $sort: {
-    //         username: 1
-    //       }
-    //     },
-    //   ],function (err, pictures) => {
-    //     if (err) {
-    //       return next(err);
-    //     }
-    //
-    //
-    //   const aggregatedDocuments = results.map(result => new Person(result));
-    //   res.send(aggregatedDocuments);
-    // });
+  //   Picture.aggregate([
+  //     {
+  //       $lookup: {
+  //         from: 'pictures',
+  //         localField: '_id',
+  //         foreignField: 'userId',
+  //         as: 'nbPictures'
+  //       }
+  //     },
+  //     {
+  //       $unwind: '$nbPictures'
+  //     },
+  //       {
+  //       $group: {
+  //         _id: '$_id',
+  //         username: { $first: '$username' },
+  //         nbPictures: { $sum: 1}
+  //       }
+  //     },
+  //     {
+  //       $sort: {
+  //         username: 1
+  //       }
+  //     },
+  //   ],function (err, pictures) => {
+  //     if (err) {
+  //       return next(err);
+  //     }
+  //
+  //
+  //   const aggregatedDocuments = results.map(result => new Person(result));
+  //   res.send(aggregatedDocuments);
+  // });
 });
 
 /**
@@ -205,7 +205,6 @@ router.post('/', utils.authenticate, authorization, function(req, res, next) {
     res.status(201).send(savedList);
   });
 });
-
 
 /**
  * @api {patch} /users/:userId/lists/:listId Partially update a list and add a picture
@@ -403,7 +402,7 @@ function authorization(req, res, next) {
 
  */
 
- /**
+/**
  * @apiDefine ListIncludes
  */
 
@@ -443,7 +442,7 @@ function authorization(req, res, next) {
  *     }
  */
 
- /**
+/**
  * @apiDefine ListAuthorizationError
  *
  * @apiError {Object} 403/Forbidden You're not allowed to do that
