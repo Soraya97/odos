@@ -81,7 +81,7 @@ router.get('/', function(req, res, next) {
  *       "registrationDate":"2020-10-27T13:19:32.249Z"
  *      }
  */
-router.get('/:userId', getUser, utils.authenticate, authorization, function(req, res, next) {
+router.get('/:userId', utils.getUser, utils.authenticate, authorization, function(req, res, next) {
     res.send(req.user);
 
 });
@@ -179,7 +179,7 @@ router.post('/', function(req, res, next) {
  *       "registrationDate":"2020-10-27T13:19:32.249Z"
  *     }
  */
-router.patch('/:userId', getUser, utils.authenticate, authorization, function(req, res, next) {
+router.patch('/:userId', utils.getUser, utils.authenticate, authorization, function(req, res, next) {
 
   if (req.body.username !== undefined) {
     req.user.username = req.body.username;
@@ -221,7 +221,7 @@ router.patch('/:userId', getUser, utils.authenticate, authorization, function(re
  * @apiSuccessExample 204 No Content
  *     HTTP/1.1 204 No Content
  */
-router.delete('/:userId', getUser, utils.authenticate, authorization, function(req, res, next) {
+router.delete('/:userId', utils.getUser, utils.authenticate, authorization, function(req, res, next) {
 
   req.user.remove(function(err) {
     if (err) {
@@ -233,30 +233,6 @@ router.delete('/:userId', getUser, utils.authenticate, authorization, function(r
   });
 });
 
-
-// Get the user by id
-function getUser(req, res, next) {
-  // get the id of the user by the param
-  const id = req.params.userId;
-  if (!ObjectId.isValid(id)) {
-    return userNotFound(res, id);
-  }
-
-  // get the user by id
-  User.findById(req.params.userId, function(err, user) {
-    if (err) {
-      return next(err);
-    } else if (!user) {
-      return userNotFound(res, id);
-    }
-    req.user = user;
-    next();
-  });
-}
-
-function userNotFound(res, userId) {
-  return res.status(404).type('text').send(`No user found with ID ${userId}`);
-}
 
 // Authorization to do something with the id of user in the param
 function authorization(req, res, next) {

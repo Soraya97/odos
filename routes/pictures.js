@@ -71,7 +71,7 @@ const List = require('../models/list');
  */
 
 /* GET pictures listing. */
-router.get('/', function (req, res, next) {
+router.get('/', utils.getUser, function (req, res, next) {
   Picture
   .find({
     userId: req.params.userId
@@ -122,7 +122,7 @@ router.get('/', function (req, res, next) {
  *        "id": "5fa50ef8ab605f53789adb8c"
  *      }
  */
-router.get('/:pictureId', getPicture, function (req, res, next) {
+router.get('/:pictureId', utils.getUser, getPicture, function (req, res, next) {
   res.send(req.picture);
 });
 
@@ -174,7 +174,7 @@ router.get('/:pictureId', getPicture, function (req, res, next) {
  *        "id": "5fa50ef8ab605f53789adb8c"
  *      }
  */
-router.post('/', utils.authenticate, authorization, function (req, res, next) {
+router.post('/', utils.getUser, utils.authenticate, authorization, function (req, res, next) {
   // Retrieve the user ID from the URL.
   const user = req.params.userId;
   // Create a new picture from the JSON in the request body
@@ -235,7 +235,7 @@ router.post('/', utils.authenticate, authorization, function (req, res, next) {
  *        "id": "5fa50ef8ab605f53789adb8c"
  *      }
  */
-router.patch('/:pictureId', utils.authenticate, getPicture, authorizationUserPicture, function (req, res, next) {
+router.patch('/:pictureId', utils.authenticate, utils.getUser, getPicture, authorizationUserPicture, function (req, res, next) {
   // res.send(req.picture.name);
   // Update all properties (regardless of whether they are in the request body or not)
   if (req.body.description !== undefined) {
@@ -276,7 +276,7 @@ router.patch('/:pictureId', utils.authenticate, getPicture, authorizationUserPic
 * @apiSuccessExample 204 No Content
 *     HTTP/1.1 204 No Content
 */
-router.delete('/:pictureId', utils.authenticate, getPicture, authorizationUserPicture, function (req, res, next) {
+router.delete('/:pictureId', utils.authenticate, utils.getUser, getPicture, authorizationUserPicture, function (req, res, next) {
   req.picture.remove(function (err) {
     if (err) {
       return next(err);

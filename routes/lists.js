@@ -50,7 +50,7 @@ const webSocket = require('../websocket/dispatcher');
  *     }]
  */
 
-router.get('/', utils.authenticate, authorization, function(req, res, next) {
+router.get('/', utils.getUser, utils.authenticate, authorization, function(req, res, next) {
   // Find the lists
   List
     .find({
@@ -136,7 +136,7 @@ router.get('/', utils.authenticate, authorization, function(req, res, next) {
  *        "user":"5f981e64eeac3042b0e27b86","__v":0}
  *      }]
  */
-router.get('/:listId', utils.authenticate, getList, authorizationUserList, function(req, res, next) {
+router.get('/:listId', utils.authenticate, utils.getUser, getList, authorizationUserList, function(req, res, next) {
   // Find the list
   res.send(req.list);
   // List
@@ -188,7 +188,7 @@ router.get('/:listId', utils.authenticate, getList, authorizationUserList, funct
  *        "user":"5f981e64eeac3042b0e27b86","__v":0}
  *      }]
  */
-router.post('/', utils.authenticate, authorization, function(req, res, next) {
+router.post('/', utils.authenticate, utils.getUser, authorization, function(req, res, next) {
   // Retrieve the user ID from the URL.
   const user = req.params.userId;
   // res.send(req.params.userId);
@@ -243,7 +243,7 @@ router.post('/', utils.authenticate, authorization, function(req, res, next) {
  *        "user":"5f981e64eeac3042b0e27b86","__v":0}
  *      }]
  */
-router.patch('/:listId', utils.authenticate, getList, authorizationUserList, function(req, res, next) {
+router.patch('/:listId', utils.authenticate, utils.getUser, getList, authorizationUserList, function(req, res, next) {
   // Update all properties (regardless of whether they are in the request body or not)
   if (req.body.name !== undefined) {
     req.list.name = req.body.name;
@@ -286,7 +286,7 @@ router.patch('/:listId', utils.authenticate, getList, authorizationUserList, fun
 * @apiSuccessExample 204 No Content
 *     HTTP/1.1 204 No Content
 */
-router.delete('/:listId/picture/:pictureId', utils.authenticate, getList, authorizationUserList, function(req, res, next) {
+router.delete('/:listId/picture/:pictureId', utils.authenticate, utils.getUser, getList, authorizationUserList, function(req, res, next) {
   req.list.picture.splice(req.list.picture.indexOf(req.params.pictureId), 1);
 
   req.list.modificationDate = new Date();
@@ -319,7 +319,7 @@ router.delete('/:listId/picture/:pictureId', utils.authenticate, getList, author
 * @apiSuccessExample 204 No Content
 *     HTTP/1.1 204 No Content
 */
-router.delete('/:listId', utils.authenticate, getList, authorizationUserList, function(req, res, next) {
+router.delete('/:listId', utils.authenticate, utils.getUser, getList, authorizationUserList, function(req, res, next) {
   // Delete the list
   req.list.remove(function(err) {
     if (err) {
