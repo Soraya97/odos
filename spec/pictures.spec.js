@@ -58,11 +58,11 @@ describe('GET /users/:userId/pictures', function() {
 
   it('should retrieve the list of pictures', async function() {
     const userId = user._id;
-    const token = await generateValidToken(user);
+    // const token = await generateValidToken(user);
 
     const res = await supertest(app)
       .get(`/users/${userId}/pictures`)
-      .set('Authorization', `Bearer ${token}`)
+      // .set('Authorization', `Bearer ${token}`)
       .expect(200)
       .expect('Content-Type', /json/);
 

@@ -18,7 +18,7 @@ const List = require('../models/list');
 
 // ------ RESOURCES ODOS ------
 /* GET pictures listing. */
-router.get('/', utils.authenticate, authorization, function (req, res, next) {
+router.get('/', function (req, res, next) {
   Picture
   .find({
     userId: req.currentUserId
@@ -56,7 +56,7 @@ router.get('/', utils.authenticate, authorization, function (req, res, next) {
  *
  *      }]
  */
-router.get('/:pictureId', utils.authenticate, getPicture, authorizationUserPicture, function (req, res, next) {
+router.get('/:pictureId', getPicture, function (req, res, next) {
   res.send(req.picture);
 });
 
