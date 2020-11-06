@@ -17,8 +17,6 @@ const List = require('../models/list');
 
 
 // ------ RESOURCES ODOS ------
-<<<<<<< HEAD
-
 
 /**
  * @api {get} /users/:userId/pictures Retrieve all pictures
@@ -32,7 +30,7 @@ const List = require('../models/list');
  * @apiUse PictureIncludes
  * @apiUse PictureNotFoundError
  * @apiUse PictureAuthorizationError
- * 
+ *
  * @apiExample Example
  *     GET /users/5f981e64eeac3042b0e27b86/pictures/ HTTP/1.1
  *
@@ -71,11 +69,9 @@ const List = require('../models/list');
  *        "id": "5fa50ef8ab605f53798dddd8c"
  *      }]
  */
-router.get('/', utils.authenticate, authorization, function (req, res, next) {
-=======
+
 /* GET pictures listing. */
 router.get('/', function (req, res, next) {
->>>>>>> a3ed3780b8671c60fdf24301ac860c445283fd4f
   Picture
   .find({
     userId: req.params.userId
@@ -124,7 +120,7 @@ router.get('/', function (req, res, next) {
  *        "last_mod_date": "2020-11-06T08:53:12.467Z",
  *        "userId": "5f981e64eeac3042b0e27b86",
  *        "id": "5fa50ef8ab605f53789adb8c"
- *      } 
+ *      }
  */
 router.get('/:pictureId', getPicture, function (req, res, next) {
   res.send(req.picture);
@@ -156,12 +152,12 @@ router.get('/:pictureId', getPicture, function (req, res, next) {
  *            },
  *          "picture":"https://www.partir.com/images/plages/thailande-plage-rai-leh.jpg"
  *      }
- * 
+ *
  * @apiSuccessExample 201 Created
  *     HTTP/1.1 201 Created
  *     Content-Type: application/json
  *     Location: https://odos-archioweb.herokuapp.com/5fa50ef8ab605f53789adb8c
- * 
+ *
  *     {
  *        "description": "Plage de sable",
  *        "location": {
