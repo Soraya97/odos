@@ -98,40 +98,23 @@ router.get('/', utils.getUser, utils.authenticate, authorization, function(req, 
 //         username: 1
 //       }
 //     },
-//   ], (err, users) => {
+//   ], (err, lists) => {
 //     if (err) {
 //       return next(err);
 //     }
 //
-//     res.send(users.map(user => {
+//     res.send(lists.map(list => {
 //
 //       // Transform the aggregated object into a Mongoose model.
-//       const serialized = new Picture(user).toJSON();
+//       const serialized = new Picture(list).toJSON();
 //
 //       // Add the aggregated property.
-//       serialized.nbPictures = user.nbPictures;
+//       serialized.nbPictures = list.nbPictures;
 //
 //       return serialized;
 //     }));
 // });
   });
-
-
-/**
- * Returns a Mongoose query that will retrieve people filtered with the URL query parameters.
- */
-function queryLists(req) {
-
-  let query = List.find({
-    user: req.currentUserId
-  });
-
-  // if (typeof(req.query.gender) == 'string') {
-  //   query = query.where('gender').equals(req.query.gender);
-  // }
-
-  return query;
-}
 
 /**
  * @api {get} /users/:userId/lists/:listId Retrieve a list
