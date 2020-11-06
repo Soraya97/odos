@@ -30,7 +30,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "name",
-            "description": "<p>The name of the list sorted alphabetically</p>"
+            "description": "<p>The name of the list</p>"
           },
           {
             "group": "Response body",
@@ -137,7 +137,7 @@ define({ "api": [
       "examples": [
         {
           "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"name\": ValidatorError: List name Oarty already exists {\n      \"properties\": [Object],\n      \"kind\": \"unique\",\n      \"path\": \"name\",\n      \"value\": \"Party\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"List validation failed\"\n}",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"name\": ValidatorError: List name Party already exists {\n      \"properties\": [Object],\n      \"kind\": \"unique\",\n      \"path\": \"name\",\n      \"value\": \"Party\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"List validation failed\"\n}",
           "type": "json"
         },
         {
@@ -337,7 +337,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "name",
-            "description": "<p>The name of the list sorted alphabetically</p>"
+            "description": "<p>The name of the list</p>"
           },
           {
             "group": "Response body",
@@ -451,7 +451,7 @@ define({ "api": [
         },
         {
           "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"name\": ValidatorError: List name Oarty already exists {\n      \"properties\": [Object],\n      \"kind\": \"unique\",\n      \"path\": \"name\",\n      \"value\": \"Party\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"List validation failed\"\n}",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"name\": ValidatorError: List name Party already exists {\n      \"properties\": [Object],\n      \"kind\": \"unique\",\n      \"path\": \"name\",\n      \"value\": \"Party\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"List validation failed\"\n}",
           "type": "json"
         },
         {
@@ -507,7 +507,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "name",
-            "description": "<p>The name of the list sorted alphabetically</p>"
+            "description": "<p>The name of the list</p>"
           },
           {
             "group": "Response body",
@@ -595,7 +595,7 @@ define({ "api": [
     "name": "RetrieveLists",
     "group": "List",
     "version": "1.0.0",
-    "description": "<p>Retrieves a list of lists</p>",
+    "description": "<p>Retrieves a list of lists ordered by name (in alphabetical order).</p>",
     "examples": [
       {
         "title": "Example",
@@ -633,7 +633,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "name",
-            "description": "<p>The name of the list sorted alphabetically</p>"
+            "description": "<p>The name of the list</p>"
           },
           {
             "group": "Response body",
@@ -1106,7 +1106,7 @@ define({ "api": [
     "name": "RetrieveAllPictures",
     "group": "Picture",
     "version": "1.0.0",
-    "description": "<p>Retrieves a list of Picture.</p>",
+    "description": "<p>Retrieves a list of picture ordered by picture (in alphabetical order).</p>",
     "examples": [
       {
         "title": "Example",
@@ -1435,7 +1435,7 @@ define({ "api": [
             "size": "/\\S+@\\S+\\.\\S+/",
             "optional": false,
             "field": "email",
-            "description": "<p>The email of the user (must match an email form, must be unique)</p>"
+            "description": "<p>The email of the user (must be unique)</p>"
           },
           {
             "group": "Request body",
@@ -1456,13 +1456,25 @@ define({ "api": [
             "optional": false,
             "field": "422/UnprocessableEntity",
             "description": "<p>Some of the User's properties are invalid</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  A corriger\n}",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"email\": ValidatorError: is invalid {\n      \"properties\": [Object],\n      \"kind\": \"regexp\",\n      \"path\": \"email\",\n      \"value\": \"lauraineemail\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"User validation failed\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -1516,6 +1528,13 @@ define({ "api": [
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No User was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1523,6 +1542,11 @@ define({ "api": [
         {
           "title": "404 Not Found",
           "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -1598,15 +1622,6 @@ define({ "api": [
             "field": "userId",
             "description": "<p>The unique identifier of the user to retrieve</p>"
           }
-        ],
-        "URL query parameters": [
-          {
-            "group": "URL query parameters",
-            "type": "String",
-            "optional": true,
-            "field": "include",
-            "description": "<p>Embed linked resources in the response body:</p> <ul> <li><code>&quot;username&quot;</code> for the user's username</li> </ul>"
-          }
         ]
       }
     },
@@ -1619,6 +1634,13 @@ define({ "api": [
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No User was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1626,6 +1648,11 @@ define({ "api": [
         {
           "title": "404 Not Found",
           "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -1638,7 +1665,7 @@ define({ "api": [
     "name": "RetrieveUsers",
     "group": "User",
     "version": "1.0.0",
-    "description": "<p>Retrieves a paginated??? list of users ordered by usernames???? (in alphabetical order).</p>",
+    "description": "<p>Retrieves a list of users ordered by usernames (in alphabetical order).</p>",
     "examples": [
       {
         "title": "Example",
@@ -1691,19 +1718,6 @@ define({ "api": [
     },
     "filename": "routes/users.js",
     "groupTitle": "User",
-    "parameter": {
-      "fields": {
-        "URL query parameters": [
-          {
-            "group": "URL query parameters",
-            "type": "String",
-            "optional": true,
-            "field": "include",
-            "description": "<p>Embed linked resources in the response body:</p> <ul> <li><code>&quot;username&quot;</code> for the user's username</li> </ul>"
-          }
-        ]
-      }
-    },
     "error": {
       "fields": {
         "Error 4xx": [
@@ -1713,6 +1727,13 @@ define({ "api": [
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No User was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1720,6 +1741,11 @@ define({ "api": [
         {
           "title": "404 Not Found",
           "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -1811,7 +1837,7 @@ define({ "api": [
             "size": "/\\S+@\\S+\\.\\S+/",
             "optional": false,
             "field": "email",
-            "description": "<p>The email of the user (must match an email form, must be unique)</p>"
+            "description": "<p>The email of the user (must be unique)</p>"
           },
           {
             "group": "Request body",
@@ -1839,6 +1865,13 @@ define({ "api": [
             "optional": false,
             "field": "422/UnprocessableEntity",
             "description": "<p>Some of the User's properties are invalid</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1850,7 +1883,12 @@ define({ "api": [
         },
         {
           "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  A corriger\n}",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"email\": ValidatorError: is invalid {\n      \"properties\": [Object],\n      \"kind\": \"regexp\",\n      \"path\": \"email\",\n      \"value\": \"lauraineemail\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"User validation failed\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]

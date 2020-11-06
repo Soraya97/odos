@@ -17,7 +17,7 @@ const webSocket = require('../websocket/dispatcher');
  * @apiName RetrieveLists
  * @apiGroup List
  * @apiVersion 1.0.0
- * @apiDescription Retrieves a list of lists
+ * @apiDescription Retrieves a list of lists ordered by name (in alphabetical order).
  *
  * @apiUse ListInResponseBody
  * @apiUse ListIncludes
@@ -394,7 +394,7 @@ function authorization(req, res, next) {
  * @apiDefine ListInResponseBody
  * @apiSuccess (Response body) {Boolean{default: false}} public Make the list private or public
  * @apiSuccess (Response body) {String} id An Id which is referencing the list (eg: `5f98321aabf23b2cfce0fe76`)
- * @apiSuccess (Response body) {String} name The name of the list sorted alphabetically
+ * @apiSuccess (Response body) {String} name The name of the list 
  * @apiSuccess (Response body) {Date} creationDate The date at which the list was created
  * @apiSuccess (Response body) {Date} modificationDate The date at which the list was modified
  * @apiSuccess (Response body) {Schema.Types.ObjectId} userId An Id who is referencing to the user who create the list
@@ -429,7 +429,7 @@ function authorization(req, res, next) {
  *
  *     {
  *       "errors": {
- *         "name": ValidatorError: List name Oarty already exists {
+ *         "name": ValidatorError: List name Party already exists {
  *           "properties": [Object],
  *           "kind": "unique",
  *           "path": "name",
