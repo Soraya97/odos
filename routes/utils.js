@@ -5,6 +5,28 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const User = require('../models/user');
 
+
+/**
+ * @api {get} / Get the user by id
+ * @apiName GetUser
+ * @apiGroup Utils
+ * @apiVersion 1.0.0
+ * @apiDescription file where the functions that are used in multiple files are located
+ * 
+ * @apiError {Object} 404/NotFound No User was found corresponding to the ID in the URL path
+ * @apiErrorExample {json} 404 Not Found
+ *     HTTP/1.1 404 Not Found
+ *     Content-Type: text/plain
+ *
+ *     No User found with ID 5f981e64eeac3042b0e27b86
+ *
+ * @apiError {Object} 401/Unauthorized Something went wrong
+ * @apiErrorExample {json} 401 Unauthorized
+ *     HTTP/1.1 401 Unauthorized
+ *     Content-Type: text/plain
+ *
+ *     Authorization header is missing
+ */
 // Get the user by id
 exports.getUser = function(req, res, next) {
   // get the id of the user by the param
@@ -57,10 +79,14 @@ exports.authenticate = function(req, res, next) {
 }
 
 /**
- * Parses the pagination parameters (i.e. page & page size) from the request.
+ * @api {Parse} / Parses the pagination parameters
+ * @apiName ParsesParam
+ * @apiGroup Utils
+ * @apiVersion 1.0.0
+ * @apiDescription Parses the pagination parameters (i.e. page & page size) from the request.
  *
- * @param {ExpressRequest} req - The Express request object
- * @returns An object with "page" and "pageSize" properties
+ * @apiParam {ExpressRequest} req The Express request object
+ * @apiSuccess {Number} return An object with "page" and "pageSize" properties
  */
 exports.getPaginationParameters = function(req) {
 
@@ -80,13 +106,17 @@ exports.getPaginationParameters = function(req) {
 };
 
 /**
- * Adds a Link header to the response (if applicable).
+ * @api {Add} / Add a link to header
+ * @apiName AddLink
+ * @apiGroup Utils
+ * @apiVersion 1.0.0
+ * @apiDescription Adds a Link header to the response (if applicable).
  *
- * @param {String} resourceHref - The hyperlink reference of the collection (e.g. "/api/people")
- * @param {Number} page - The page being listed
- * @param {Number} pageSize - The page size
- * @param {Number} total - The total number of elements
- * @param {ExpressResponse} res - The Exprss response object
+ * @apiParam {String} resourceHref The hyperlink reference of the collection (e.g. "/api/people")
+ * @apiParam {Number} page The page being listed
+ * @apiParam {Number} pageSize The page size
+ * @apiParam {Number} total The total number of elements
+ * @apiParam {ExpressResponse} res The Express response object
  */
 exports.addLinkHeader = function(resourceHref, page, pageSize, total, res) {
 
