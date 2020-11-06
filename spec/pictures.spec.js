@@ -117,7 +117,7 @@ describe('POST /users/:userId/pictures', function() {
         description: "First picture",
         location: {
           type: "Point",
-          coordinates: [48.862725, 2.287592]
+          coordinates: [100.878393, 12.930719]
         },
         picture: "https://source.unsplash.com/random"
       })
@@ -130,8 +130,8 @@ describe('POST /users/:userId/pictures', function() {
     expect(res.body.description).to.equal('First picture');
     expect(res.body.location.type).to.equal('Point');
     expect(res.body.location.coordinates).to.be.an('array');
-    expect(res.body.location.coordinates[0]).to.equal(48.862725);
-    expect(res.body.location.coordinates[1]).to.equal(2.287592);
+    expect(res.body.location.coordinates[0]).to.equal(100.878393);
+    expect(res.body.location.coordinates[1]).to.equal(12.930719);
     expect(res.body.picture).to.equal('https://source.unsplash.com/random');
     expect(res.body).to.have.all.keys('id', 'description', 'location', 'picture', 'creation_date', 'last_mod_date', 'userId');
   });

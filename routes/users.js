@@ -80,7 +80,7 @@ router.get('/', function(req, res, next) {
  *      }
  */
 router.get('/:userId', utils.getUser, utils.authenticate, authorization, function(req, res, next) {
-    res.send(req.user);
+  res.send(req.user);
 
 });
 
@@ -177,44 +177,23 @@ router.post('/', function(req, res, next) {
  *       "registrationDate":"2020-10-27T13:19:32.249Z"
  *     }
  */
-router.patch('/:userId', utils.getUser, utils.authenticate, authorization, function(req, res, next) {
-
-  if (req.body.username !== undefined) {
-    req.user.username = req.body.username;
-  }
-
-  if (req.body.email !== undefined) {
-    req.user.email = req.body.email;
-  }
-
-  if (req.body.password !== undefined) {
-    // req.user.password = req.body.password;
-    const newPassword = req.body.password;
-    const costFactor = config.bcryptCostFactor;
-    bcrypt.hash(newPassword, costFactor, function(err, newPasswordHash) {
-      if (err) {
-        return next(err);
-      }
-      req.user.password = newPasswordHash;
-      req.user.save(function(err, savedUser) {
-        if (err) {
-          return next(err);
-        }
-
-        debug(`Updated user "${savedUser.username}"`);
-        res.send(savedUser);
-      });
-  })
-}
-
-  req.user.save(function(err, savedUser) {
-    if (err) {
-      return next(err);
+router.patch('/:userId', utils.getUser, utils.authenticate, authorization, async function(req, res, next) {
+  try {
+    if (req.body.username !== undefined) {
+      req.user.username = req.body.username;
     }
-
-    debug(`Updated user "${savedUser.username}"`);
+    if (req.body.email !== undefined) {
+      req.user.email = req.body.email;
+    }
+    if (req.body.password !== undefined) {
+      const newHashedPassword = await bcrypt.hash(req.body.password, config.bcryptCostFactor);
+      req.user.password = newHashedPassword;
+    }
+    const savedUser = await req.user.save();
     res.send(savedUser);
-  });
+  } catch (err) {
+    next(err);
+  }
 });
 
 
@@ -254,7 +233,7 @@ function authorization(req, res, next) {
   if (req.currentUserId != req.user._id) {
     return res.status(403).send("You're not allowed to do that")
   }
-next();
+  next();
 }
 
 /**
@@ -277,7 +256,7 @@ next();
  * @apiSuccess (Response body) {Date} registrationDate The date at which the user was created
  */
 
- /**
+/**
  * @apiDefine UserIncludes
  */
 
@@ -317,7 +296,7 @@ next();
  *     }
  */
 
- /**
+/**
  * @apiDefine UserAuthorizationError
  *
  * @apiError {Object} 403/Forbidden You're not allowed to do that
@@ -329,7 +308,7 @@ next();
  *     You're not allowed to do that
  */
 
-  /**
+/**
  * @apiDefine UserUnauthorizedError
  *
  * @apiError {Object} 401/Unauthorized You're not allowed to do that
