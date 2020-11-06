@@ -838,7 +838,21 @@ define({ "api": [
             "group": "Error 4xx",
             "type": "Object",
             "optional": false,
+            "field": "404/NotFound",
+            "description": "<p>No User was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
             "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
             "description": "<p>You're not allowed to do that</p>"
           }
         ]
@@ -850,8 +864,18 @@ define({ "api": [
           "type": "json"
         },
         {
+          "title": "404 Not Found",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        },
+        {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -912,6 +936,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -922,8 +953,18 @@ define({ "api": [
           "type": "json"
         },
         {
+          "title": "404 Not Found",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        },
+        {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -937,6 +978,36 @@ define({ "api": [
     "group": "Picture",
     "version": "1.0.0",
     "description": "<p>Partially updates a picture's data (only the properties found in the request body will be updated). All properties are optional.</p>",
+    "parameter": {
+      "fields": {
+        "Request body": [
+          {
+            "group": "Request body",
+            "type": "String",
+            "size": "3...50",
+            "optional": false,
+            "field": "description",
+            "description": "<p>The description of the picture (must be unique)</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>The url of the picture</p>"
+          }
+        ],
+        "URL path parameters": [
+          {
+            "group": "URL path parameters",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique identifier of the picture to retrieve</p>"
+          }
+        ]
+      }
+    },
     "examples": [
       {
         "title": "Example",
@@ -948,7 +1019,7 @@ define({ "api": [
       "examples": [
         {
           "title": "200 OK",
-          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\n   \"description\": \"Plage de sable à Pattaya\",\n   \"location\": {\n     \"type\": \"Point\",\n      \"coordinates\": [\n         48.862725,\n         2.287592\n       ]\n    },\n   \"picture\": \"https://www.partir.com/images/plages/thailande-plage-rai-leh.jpg\",\n   \"creation_date\": \"2020-11-06T08:53:12.467Z\",\n   \"last_mod_date\": \"2020-12-06T11:54:16.467Z\",\n   \"userId\": \"5f981e64eeac3042b0e27b86\",\n   \"id\": \"5fa50ef8ab605f53789adb8c\"\n }",
+          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\n   \"description\": \"Plage de sable à Pattaya\",\n    \"location\": {\n     \"type\": \"Point\",\n      \"coordinates\": [\n         48.862725,\n         2.287592\n       ]\n    },\n   \"picture\": \"https://www.partir.com/images/plages/thailande-plage-rai-leh.jpg\",\n   \"creation_date\": \"2020-11-06T08:53:12.467Z\",\n   \"last_mod_date\": \"2020-12-06T11:54:16.467Z\",\n   \"userId\": \"5f981e64eeac3042b0e27b86\",\n   \"id\": \"5fa50ef8ab605f53789adb8c\"\n }",
           "type": "json"
         }
       ],
@@ -1009,51 +1080,6 @@ define({ "api": [
     },
     "filename": "routes/pictures.js",
     "groupTitle": "Picture",
-    "parameter": {
-      "fields": {
-        "URL path parameters": [
-          {
-            "group": "URL path parameters",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The unique identifier of the picture to retrieve</p>"
-          }
-        ],
-        "Request body": [
-          {
-            "group": "Request body",
-            "type": "String",
-            "size": "3...50",
-            "optional": false,
-            "field": "description",
-            "description": "<p>The description of the picture (must be unique)</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "String",
-            "optional": false,
-            "field": "location",
-            "description": "<p>The location of the picture</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "Number",
-            "size": "longitude/latitude",
-            "optional": false,
-            "field": "coordinates",
-            "description": "<p>Coordinates of the picture</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "String",
-            "optional": false,
-            "field": "picture",
-            "description": "<p>The url of the picture</p>"
-          }
-        ]
-      }
-    },
     "error": {
       "fields": {
         "Error 4xx": [
@@ -1077,6 +1103,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1087,6 +1120,11 @@ define({ "api": [
           "type": "json"
         },
         {
+          "title": "404 Not Found",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        },
+        {
           "title": "422 Unprocessable Entity",
           "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"location.coordinates\": ValidatorError: 12.930719, 100.878393 is not a valid longitude/latitude(/altitude) coordinates array {\n      \"properties\": [Object],\n      \"kind\": \"user defined\",\n      \"path\": \"location.coordinates\",\n      \"value\": \"[12.930719, 100.878393]\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"Picture validation failed\"\n}",
           "type": "json"
@@ -1094,6 +1132,11 @@ define({ "api": [
         {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1208,6 +1251,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1218,8 +1268,18 @@ define({ "api": [
           "type": "json"
         },
         {
+          "title": "404 Not Found",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        },
+        {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1334,6 +1394,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1344,8 +1411,18 @@ define({ "api": [
           "type": "json"
         },
         {
+          "title": "404 Not Found",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        },
+        {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1359,16 +1436,23 @@ define({ "api": [
     "group": "User",
     "version": "1.0.0",
     "description": "<p>Create a new user.</p>",
+    "examples": [
+      {
+        "title": "Example",
+        "content": "POST /users HTTP/1.1\nContent-Type: application/json\n\n{\n  \"username\": \"Pomme\",\n  \"email\": \"gateau@gmail.com\",\n  \"password\": \"Tre$B0n\"\n}",
+        "type": "json"
+      }
+    ],
     "success": {
+      "examples": [
+        {
+          "title": "201 Created",
+          "content": "HTTP/1.1 201 Created\nContent-Type: application/json\nLocation: https://odos-archioweb.herokuapp.com/5f981e64eeac3042b0e27b86\n\n{\n  \"_id\": \"5f981e64eeac3042b0e27b86\",\n  \"username\": \"Pomme\",\n  \"email\": \"gateau@gmail.com\",\n  \"registrationDate\":\"2020-10-27T13:19:32.249Z\"\n}",
+          "type": "json"
+        }
+      ],
       "fields": {
         "Response body": [
-          {
-            "group": "Response body",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>A unique identifier for the user generated by the server</p>"
-          },
           {
             "group": "Response body",
             "type": "String",
@@ -1400,22 +1484,8 @@ define({ "api": [
             "description": "<p>The date at which the user was created</p>"
           }
         ]
-      },
-      "examples": [
-        {
-          "title": "201 Created",
-          "content": "HTTP/1.1 201 Created\nContent-Type: application/json\nLocation: https://odos-archioweb.herokuapp.com/5f981e64eeac3042b0e27b86\n\n{\n  \"_id\": \"5f981e64eeac3042b0e27b86\",\n  \"username\": \"Pomme\",\n  \"email\": \"gateau@gmail.com\",\n  \"registrationDate\":\"2020-10-27T13:19:32.249Z\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "examples": [
-      {
-        "title": "Example",
-        "content": "POST /users HTTP/1.1\nContent-Type: application/json\n\n{\n  \"username\": \"Pomme\",\n  \"email\": \"gateau@gmail.com\",\n  \"password\": \"Tre$B0n\"\n}",
-        "type": "json"
       }
-    ],
+    },
     "filename": "routes/users.js",
     "groupTitle": "User",
     "parameter": {
@@ -1442,7 +1512,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>The password of the user that is put in hash</p>"
+            "description": "<p>The password of the user that will be hashed</p>"
           }
         ]
       }
@@ -1844,7 +1914,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>The password of the user that is put in hash</p>"
+            "description": "<p>The password of the user that will be hashed</p>"
           }
         ]
       }
