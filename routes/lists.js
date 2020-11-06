@@ -284,9 +284,10 @@ router.patch('/:listId', utils.authenticate, utils.getUser, getList, authorizati
 * @apiUse ListIdInUrlPath
 * @apiUse ListNotFoundError
 * @apiUse UserAuthorizationError
+* @apiUse UserUnauthorizedError
 
 * @apiExample Example
-*     DELETE /users/5f981e64eeac3042b0e27b86/lists/5f9fca8bf677aa3dcce8a620/picture/5f981e64eeac3042b0e27b86 HTTP/1.1
+*     DELETE /users/5f981e64eeac3042b0e27b86/lists/5f9fca8bf677aa3dcce8a620/picture/5fa50ef8ab605f53789adb8c HTTP/1.1
 *
 * @apiSuccessExample 204 No Content
 *     HTTP/1.1 204 No Content
@@ -317,6 +318,7 @@ router.delete('/:listId/picture/:pictureId', utils.authenticate, utils.getUser, 
 * @apiUse ListIdInUrlPath
 * @apiUse ListNotFoundError
 * @apiUse UserAuthorizationError
+* @apiUse UserUnauthorizedError
 
 * @apiExample Example
 *     DELETE /users/5f981e64eeac3042b0e27b86/lists/5f9fca8bf677aa3dcce8a620 HTTP/1.1
@@ -391,19 +393,19 @@ function authorization(req, res, next) {
  * @apiDefine ListInRequestBody
  * @apiParam (Request body) {String{minlength: 3}} name The name of the list (must be unique)
  * @apiParam (Request body) {Boolean{default: false}} public Make the list private or public
- * @apiParam (Request body) {Schema.Types.ObjectId} userId An Id who is referencing to the user who create the list (eg: `5f981e64eeac3042b0e27b86`)
- * @apiParam (Request body) {Schema.Types.ObjectId} pictureId An Id who is referencing to the picture who is in the list (eg: `A CHANGER`)
+ * @apiParam (Request body) {Schema.Types.ObjectId} userId An id which is referencing to the user who create the list (eg: `5f981e64eeac3042b0e27b86`)
+ * @apiParam (Request body) {Schema.Types.ObjectId} pictureId An id which is referencing to the picture which is in the list (eg: `5fa50ef8ab605f53789adb8c`)
  * */
 
 /**
  * @apiDefine ListInResponseBody
  * @apiSuccess (Response body) {Boolean{default: false}} public Make the list private or public
- * @apiSuccess (Response body) {String} id An Id which is referencing the list (eg: `5f98321aabf23b2cfce0fe76`)
+ * @apiSuccess (Response body) {String} id An id which is referencing the list (eg: `5f98321aabf23b2cfce0fe76`)
  * @apiSuccess (Response body) {String} name The name of the list 
  * @apiSuccess (Response body) {Date} creationDate The date at which the list was created
  * @apiSuccess (Response body) {Date} modificationDate The date at which the list was modified
- * @apiSuccess (Response body) {Schema.Types.ObjectId} userId An Id who is referencing to the user who create the list
- * @apiSuccess (Response body) {Schema.Types.ObjectId} pictureId An Id who is referencing to the picture who is in the list
+ * @apiSuccess (Response body) {Schema.Types.ObjectId} userId An id which is referencing to the user who create the list
+ * @apiSuccess (Response body) {Schema.Types.ObjectId} pictureId An id which is referencing to the picture which is in the list
 
  */
 

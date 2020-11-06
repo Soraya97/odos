@@ -51,14 +51,14 @@ define({ "api": [
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "userId",
-            "description": "<p>An Id who is referencing to the user who create the list</p>"
+            "description": "<p>An id which is referencing to the user who create the list</p>"
           },
           {
             "group": "Response body",
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "pictureId",
-            "description": "<p>An Id who is referencing to the picture who is in the list</p>"
+            "description": "<p>An id which is referencing to the picture which is in the list</p>"
           }
         ]
       },
@@ -103,14 +103,14 @@ define({ "api": [
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "userId",
-            "description": "<p>An Id who is referencing to the user who create the list (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
+            "description": "<p>An id which is referencing to the user who create the list (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
           },
           {
             "group": "Request body",
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "pictureId",
-            "description": "<p>An Id who is referencing to the picture who is in the list (eg: <code>A CHANGER</code>)</p>"
+            "description": "<p>An id which is referencing to the picture which is in the list (eg: <code>5fa50ef8ab605f53789adb8c</code>)</p>"
           }
         ]
       }
@@ -215,6 +215,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -227,6 +234,11 @@ define({ "api": [
         {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -243,7 +255,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example",
-        "content": "DELETE /users/5f981e64eeac3042b0e27b86/lists/5f9fca8bf677aa3dcce8a620/picture/5f981e64eeac3042b0e27b86 HTTP/1.1",
+        "content": "DELETE /users/5f981e64eeac3042b0e27b86/lists/5f9fca8bf677aa3dcce8a620/picture/5fa50ef8ab605f53789adb8c HTTP/1.1",
         "type": "json"
       }
     ],
@@ -287,6 +299,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -299,6 +318,11 @@ define({ "api": [
         {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -342,7 +366,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>An Id which is referencing the list (eg: <code>5f98321aabf23b2cfce0fe76</code>)</p>"
+            "description": "<p>An id which is referencing the list (eg: <code>5f98321aabf23b2cfce0fe76</code>)</p>"
           },
           {
             "group": "Response body",
@@ -370,14 +394,14 @@ define({ "api": [
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "userId",
-            "description": "<p>An Id who is referencing to the user who create the list</p>"
+            "description": "<p>An id which is referencing to the user who create the list</p>"
           },
           {
             "group": "Response body",
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "pictureId",
-            "description": "<p>An Id who is referencing to the picture who is in the list</p>"
+            "description": "<p>An id which is referencing to the picture which is in the list</p>"
           }
         ]
       }
@@ -417,14 +441,14 @@ define({ "api": [
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "userId",
-            "description": "<p>An Id who is referencing to the user who create the list (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
+            "description": "<p>An id which is referencing to the user who create the list (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
           },
           {
             "group": "Request body",
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "pictureId",
-            "description": "<p>An Id who is referencing to the picture who is in the list (eg: <code>A CHANGER</code>)</p>"
+            "description": "<p>An id which is referencing to the picture which is in the list (eg: <code>5fa50ef8ab605f53789adb8c</code>)</p>"
           }
         ]
       }
@@ -524,7 +548,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>An Id which is referencing the list (eg: <code>5f98321aabf23b2cfce0fe76</code>)</p>"
+            "description": "<p>An id which is referencing the list (eg: <code>5f98321aabf23b2cfce0fe76</code>)</p>"
           },
           {
             "group": "Response body",
@@ -552,14 +576,14 @@ define({ "api": [
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "userId",
-            "description": "<p>An Id who is referencing to the user who create the list</p>"
+            "description": "<p>An id which is referencing to the user who create the list</p>"
           },
           {
             "group": "Response body",
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "pictureId",
-            "description": "<p>An Id who is referencing to the picture who is in the list</p>"
+            "description": "<p>An id which is referencing to the picture which is in the list</p>"
           }
         ]
       }
@@ -662,7 +686,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>An Id which is referencing the list (eg: <code>5f98321aabf23b2cfce0fe76</code>)</p>"
+            "description": "<p>An id which is referencing the list (eg: <code>5f98321aabf23b2cfce0fe76</code>)</p>"
           },
           {
             "group": "Response body",
@@ -690,14 +714,14 @@ define({ "api": [
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "userId",
-            "description": "<p>An Id who is referencing to the user who create the list</p>"
+            "description": "<p>An id which is referencing to the user who create the list</p>"
           },
           {
             "group": "Response body",
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "pictureId",
-            "description": "<p>An Id who is referencing to the picture who is in the list</p>"
+            "description": "<p>An id which is referencing to the picture which is in the list</p>"
           }
         ]
       }
