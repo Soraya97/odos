@@ -1,7 +1,34 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 const formatLinkHeader = require('format-link-header');
-// A REPRENDRE PLUS TARD, POUR LES AUTORISATIONS
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+const User = require('../models/user');
+
+// Get the user by id
+exports.getUser = function(req, res, next) {
+  // get the id of the user by the param
+  const id = req.params.userId;
+  if (!ObjectId.isValid(id)) {
+    return userNotFound(res, id);
+  }
+
+  // get the user by id
+  User.findById(req.params.userId, function(err, user) {
+    if (err) {
+      return next(err);
+    } else if (!user) {
+      return userNotFound(res, id);
+    }
+    req.user = user;
+    next();
+  });
+}
+
+function userNotFound(res, userId) {
+  return res.status(404).type('text').send(`No user found with ID ${userId}`);
+}
+
 // Route protections, not accessible until someone is authenticated
 // It uses the token
 exports.authenticate = function(req, res, next) {
