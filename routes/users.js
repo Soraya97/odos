@@ -325,7 +325,7 @@ next();
  * @apiError {Object} 401/Unauthorized You're not allowed to do that
  *
  * @apiErrorExample {json} 401 Unauthorized
- *     HTTP/1.1 403 Forbidden
+ *     HTTP/1.1 401 Unauthorized
  *     Content-Type: text/plain
  *
  *     You're not connected you don't have access
