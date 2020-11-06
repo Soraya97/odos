@@ -7,6 +7,35 @@
     "group": "List",
     "version": "1.0.0",
     "description": "<p>Create a new list.</p>",
+    "parameter": {
+      "fields": {
+        "Request body": [
+          {
+            "group": "Request body",
+            "type": "String",
+            "size": "minlength: 3",
+            "optional": false,
+            "field": "name",
+            "description": "<p>The name of the list (must be unique)</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "Boolean",
+            "size": "default: false",
+            "optional": false,
+            "field": "public",
+            "description": "<p>Make the list private or public</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "Schema.Types.ObjectId",
+            "optional": false,
+            "field": "pictureId",
+            "description": "<p>An id which is referencing to the picture which is in the list (eg: <code>5fa50ef8ab605f53789adb8c</code>)</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "fields": {
         "Response body": [
@@ -65,7 +94,7 @@
       "examples": [
         {
           "title": "201 Created",
-          "content": "HTTP/1.1 201 Created\nContent-Type: application/json\nLocation: https://odos-archioweb.herokuapp.com/5f981e64eeac3042b0e27b86\n\n[{\n   \"picture\":[],\n   \"public\":true,\n   \"_id\":\"5f98321aabf23b2cfce0fe76\",\n   \"name\":\"Vacances\",\n   \"creationDate\":\"2020-10-27T14:43:38.484Z\",\n   \"modificationDate\":\"2020-10-27T14:43:38.485Z\",\n   \"user\":\"5f981e64eeac3042b0e27b86\",\"__v\":0}\n }]",
+          "content": "HTTP/1.1 201 Created\nContent-Type: application/json\nLocation: https://odos-archioweb.herokuapp.com/5f981e64eeac3042b0e27b86\n\n[{\n   \"picture\":[],\n   \"public\":true,\n   \"_id\":\"5f98321aabf23b2cfce0fe76\",\n   \"name\":\"Vacances\",\n   \"creationDate\":\"2020-10-27T14:43:38.484Z\",\n   \"modificationDate\":\"2020-10-27T14:43:38.485Z\",\n   \"user\":\"5f981e64eeac3042b0e27b86\"}\n }]",
           "type": "json"
         }
       ]
@@ -79,42 +108,6 @@
     ],
     "filename": "routes/lists.js",
     "groupTitle": "List",
-    "parameter": {
-      "fields": {
-        "Request body": [
-          {
-            "group": "Request body",
-            "type": "String",
-            "size": "minlength: 3",
-            "optional": false,
-            "field": "name",
-            "description": "<p>The name of the list (must be unique)</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "Boolean",
-            "size": "default: false",
-            "optional": false,
-            "field": "public",
-            "description": "<p>Make the list private or public</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "Schema.Types.ObjectId",
-            "optional": false,
-            "field": "userId",
-            "description": "<p>An id which is referencing to the user who create the list (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "Schema.Types.ObjectId",
-            "optional": false,
-            "field": "pictureId",
-            "description": "<p>An id which is referencing to the picture which is in the list (eg: <code>5fa50ef8ab605f53789adb8c</code>)</p>"
-          }
-        ]
-      }
-    },
     "error": {
       "fields": {
         "Error 4xx": [
@@ -207,7 +200,7 @@
             "type": "Object",
             "optional": false,
             "field": "404/NotFound",
-            "description": "<p>No List was found corresponding to the ID in the URL path</p>"
+            "description": "<p>No List/User was found corresponding to the ID in the URL path</p>"
           },
           {
             "group": "Error 4xx",
@@ -291,7 +284,7 @@
             "type": "Object",
             "optional": false,
             "field": "404/NotFound",
-            "description": "<p>No List was found corresponding to the ID in the URL path</p>"
+            "description": "<p>No List/User was found corresponding to the ID in the URL path</p>"
           },
           {
             "group": "Error 4xx",
@@ -461,7 +454,7 @@
             "type": "Object",
             "optional": false,
             "field": "404/NotFound",
-            "description": "<p>No List was found corresponding to the ID in the URL path</p>"
+            "description": "<p>No List/User was found corresponding to the ID in the URL path</p>"
           },
           {
             "group": "Error 4xx",
@@ -611,7 +604,7 @@
             "type": "Object",
             "optional": false,
             "field": "404/NotFound",
-            "description": "<p>No List was found corresponding to the ID in the URL path</p>"
+            "description": "<p>No List/User was found corresponding to the ID in the URL path</p>"
           },
           {
             "group": "Error 4xx",
@@ -736,7 +729,7 @@
             "type": "Object",
             "optional": false,
             "field": "404/NotFound",
-            "description": "<p>No List was found corresponding to the ID in the URL path</p>"
+            "description": "<p>No List/User was found corresponding to the ID in the URL path</p>"
           },
           {
             "group": "Error 4xx",
@@ -772,6 +765,85 @@
         }
       ]
     }
+  },
+  {
+    "type": "post",
+    "url": "/login",
+    "title": "Login of users",
+    "name": "Login",
+    "group": "LoginUser",
+    "version": "1.0.0",
+    "description": "<p>Login of users</p>",
+    "parameter": {
+      "fields": {
+        "Request body": [
+          {
+            "group": "Request body",
+            "type": "String",
+            "size": "/^[a-zA-Z0-9]+$/",
+            "optional": false,
+            "field": "username",
+            "description": "<p>The username of the user</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "String",
+            "optional": false,
+            "field": "The",
+            "description": "<p>password of the user  (that is hashed in db)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Response body": [
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>The token of the user of the session (last 1 week)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "200 OK",
+          "content": " HTTP/1.1 200 OK\n Content-Type: application/json\n\n{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1Zjk4MWU2NGVlYWMzMDQyYjBlMjdiODYiLCJleHAiOjE2MDUyNzM5ODUuNDk5LCJpYXQiOjE2MDQ2NjkxODV9.HpC2MibTEzGBh2s21Otc6eAQZ2KGwbkqvO3XssHFhNA\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nUnauthorized",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Example",
+        "content": " POST /login HTTP/1.1\n Content-Type: application/json\n\n{\n   \"username\": \"Pomme\",\n   \"password\": \"Tre$B0n\"\n}",
+        "type": "json"
+      }
+    ],
+    "filename": "routes/auth.js",
+    "groupTitle": "LoginUser"
   },
   {
     "type": "post",
@@ -1311,13 +1383,6 @@
             "group": "Error 4xx",
             "type": "Object",
             "optional": false,
-            "field": "403/Forbidden",
-            "description": "<p>You're not allowed to do that</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
             "field": "401/Unauthorized",
             "description": "<p>You're not allowed to do that</p>"
           }
@@ -1327,11 +1392,6 @@
         {
           "title": "404 Not Found",
           "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID 5fa50ef8ab605f53789adb8c",
-          "type": "json"
-        },
-        {
-          "title": "403 Forbidden",
-          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         },
         {
@@ -1449,13 +1509,6 @@
             "group": "Error 4xx",
             "type": "Object",
             "optional": false,
-            "field": "403/Forbidden",
-            "description": "<p>You're not allowed to do that</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
             "field": "401/Unauthorized",
             "description": "<p>You're not allowed to do that</p>"
           }
@@ -1465,11 +1518,6 @@
         {
           "title": "404 Not Found",
           "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID 5fa50ef8ab605f53789adb8c",
-          "type": "json"
-        },
-        {
-          "title": "403 Forbidden",
-          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         },
         {
@@ -1578,20 +1626,6 @@
             "optional": false,
             "field": "422/UnprocessableEntity",
             "description": "<p>Some of the User's properties are invalid</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
-            "field": "403/Forbidden",
-            "description": "<p>You're not allowed to do that</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
-            "field": "401/Unauthorized",
-            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1599,16 +1633,6 @@
         {
           "title": "422 Unprocessable Entity",
           "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"email\": ValidatorError: is invalid {\n      \"properties\": [Object],\n      \"kind\": \"regexp\",\n      \"path\": \"email\",\n      \"value\": \"lauraineemail\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"User validation failed\"\n}",
-          "type": "json"
-        },
-        {
-          "title": "403 Forbidden",
-          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
-          "type": "json"
-        },
-        {
-          "title": "401 Unauthorized",
-          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1780,20 +1804,6 @@
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No User was found corresponding to the ID in the URL path</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
-            "field": "403/Forbidden",
-            "description": "<p>You're not allowed to do that</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
-            "field": "401/Unauthorized",
-            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1801,16 +1811,6 @@
         {
           "title": "404 Not Found",
           "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
-          "type": "json"
-        },
-        {
-          "title": "403 Forbidden",
-          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
-          "type": "json"
-        },
-        {
-          "title": "401 Unauthorized",
-          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1885,20 +1885,6 @@
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No User was found corresponding to the ID in the URL path</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
-            "field": "403/Forbidden",
-            "description": "<p>You're not allowed to do that</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
-            "field": "401/Unauthorized",
-            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1906,16 +1892,6 @@
         {
           "title": "404 Not Found",
           "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
-          "type": "json"
-        },
-        {
-          "title": "403 Forbidden",
-          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
-          "type": "json"
-        },
-        {
-          "title": "401 Unauthorized",
-          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
