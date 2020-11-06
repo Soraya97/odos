@@ -131,6 +131,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -143,6 +150,11 @@ define({ "api": [
         {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -440,6 +452,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -457,6 +476,11 @@ define({ "api": [
         {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -571,6 +595,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -583,6 +614,11 @@ define({ "api": [
         {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -684,6 +720,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -696,6 +739,11 @@ define({ "api": [
         {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -839,7 +887,7 @@ define({ "api": [
             "type": "Object",
             "optional": false,
             "field": "404/NotFound",
-            "description": "<p>No User was found corresponding to the ID in the URL path</p>"
+            "description": "<p>No Picture/User was found corresponding to the ID in the URL path</p>"
           },
           {
             "group": "Error 4xx",
@@ -865,7 +913,7 @@ define({ "api": [
         },
         {
           "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID 5fa50ef8ab605f53789adb8c",
           "type": "json"
         },
         {
@@ -875,7 +923,7 @@ define({ "api": [
         },
         {
           "title": "401 Unauthorized",
-          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not connected you don't have access",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -928,7 +976,7 @@ define({ "api": [
             "type": "Object",
             "optional": false,
             "field": "404/NotFound",
-            "description": "<p>No Picture was found corresponding to the ID in the URL path</p>"
+            "description": "<p>No Picture/User was found corresponding to the ID in the URL path</p>"
           },
           {
             "group": "Error 4xx",
@@ -953,18 +1001,13 @@ define({ "api": [
           "type": "json"
         },
         {
-          "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
-          "type": "json"
-        },
-        {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         },
         {
           "title": "401 Unauthorized",
-          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not connected you don't have access",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1088,7 +1131,7 @@ define({ "api": [
             "type": "Object",
             "optional": false,
             "field": "404/NotFound",
-            "description": "<p>No Picture was found corresponding to the ID in the URL path</p>"
+            "description": "<p>No Picture/User was found corresponding to the ID in the URL path</p>"
           },
           {
             "group": "Error 4xx",
@@ -1120,11 +1163,6 @@ define({ "api": [
           "type": "json"
         },
         {
-          "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
-          "type": "json"
-        },
-        {
           "title": "422 Unprocessable Entity",
           "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"location.coordinates\": ValidatorError: 12.930719, 100.878393 is not a valid longitude/latitude(/altitude) coordinates array {\n      \"properties\": [Object],\n      \"kind\": \"user defined\",\n      \"path\": \"location.coordinates\",\n      \"value\": \"[12.930719, 100.878393]\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"Picture validation failed\"\n}",
           "type": "json"
@@ -1136,7 +1174,7 @@ define({ "api": [
         },
         {
           "title": "401 Unauthorized",
-          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not connected you don't have access",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1243,7 +1281,7 @@ define({ "api": [
             "type": "Object",
             "optional": false,
             "field": "404/NotFound",
-            "description": "<p>No Picture was found corresponding to the ID in the URL path</p>"
+            "description": "<p>No Picture/User was found corresponding to the ID in the URL path</p>"
           },
           {
             "group": "Error 4xx",
@@ -1268,18 +1306,13 @@ define({ "api": [
           "type": "json"
         },
         {
-          "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
-          "type": "json"
-        },
-        {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         },
         {
           "title": "401 Unauthorized",
-          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not connected you don't have access",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1386,7 +1419,7 @@ define({ "api": [
             "type": "Object",
             "optional": false,
             "field": "404/NotFound",
-            "description": "<p>No Picture was found corresponding to the ID in the URL path</p>"
+            "description": "<p>No Picture/User was found corresponding to the ID in the URL path</p>"
           },
           {
             "group": "Error 4xx",
@@ -1411,18 +1444,13 @@ define({ "api": [
           "type": "json"
         },
         {
-          "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
-          "type": "json"
-        },
-        {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         },
         {
           "title": "401 Unauthorized",
-          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not connected you don't have access",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1533,6 +1561,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1545,6 +1580,11 @@ define({ "api": [
         {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1605,6 +1645,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1617,6 +1664,11 @@ define({ "api": [
         {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1711,6 +1763,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1723,6 +1782,11 @@ define({ "api": [
         {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1804,6 +1868,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1816,6 +1887,11 @@ define({ "api": [
         {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1942,6 +2018,13 @@ define({ "api": [
             "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1959,6 +2042,11 @@ define({ "api": [
         {
           "title": "403 Forbidden",
           "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
