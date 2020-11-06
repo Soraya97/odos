@@ -20,8 +20,6 @@ const utils = require('./utils');
  * @apiUse UserInResponseBody
  * @apiUse UserIncludes
  * @apiUse UserNotFoundError
- * @apiUse UserAuthorizationError
- * @apiUse UserUnauthorizedError
  *
  * @apiExample Example
  *     GET /users HTTP/1.1
@@ -66,8 +64,6 @@ router.get('/', function(req, res, next) {
  * @apiUse UserInResponseBody
  * @apiUse UserIncludes
  * @apiUse UserNotFoundError
- * @apiUse UserAuthorizationError
- * @apiUse UserUnauthorizedError
  *
  * @apiExample Example
  *     GET /users/5f981e64eeac3042b0e27b86 HTTP/1.1
@@ -99,8 +95,6 @@ router.get('/:userId', utils.getUser, utils.authenticate, authorization, functio
  * @apiUse UserInRequestBody
  * @apiUse UserInResponseBody
  * @apiUse UserValidationError
- * @apiUse UserAuthorizationError
- * @apiUse UserUnauthorizedError
  *
  * @apiExample Example
  *     POST /users HTTP/1.1
