@@ -194,8 +194,24 @@ router.patch('/:userId', utils.getUser, utils.authenticate, authorization, funct
   }
 
   if (req.body.password !== undefined) {
-    req.user.password = req.body.password;
-  }
+    // req.user.password = req.body.password;
+    const newPassword = req.body.password;
+    const costFactor = config.bcryptCostFactor;
+    bcrypt.hash(newPassword, costFactor, function(err, newPasswordHash) {
+      if (err) {
+        return next(err);
+      }
+      req.user.password = newPasswordHash;
+      req.user.save(function(err, savedUser) {
+        if (err) {
+          return next(err);
+        }
+
+        // debug(`Updated user "${savedUser.username}"`);
+        res.send(savedUser);
+      });
+  })
+}
 
   req.user.save(function(err, savedUser) {
     if (err) {

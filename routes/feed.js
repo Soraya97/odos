@@ -50,7 +50,7 @@ router.get('/', function(req, res, next) {
     }
 
     // Execute the query
-    query.sort({ title: 1 }).exec(function (err, pictures) {
+    query.sort({ description: 1 }).exec(function (err, pictures) {
       if (err) {
         return next(err);
       }
@@ -73,18 +73,6 @@ function queryPictures(req) {
     query = query.where('userId').in(users);
   } else if (ObjectId.isValid(req.query.userId)) {
     query = query.where('userId').equals(req.query.userId);
-  }
-
-  if (!isNaN(req.query.rating)) {
-    query = query.where('rating').equals(req.query.rating);
-  }
-
-  if (!isNaN(req.query.ratedAtLeast)) {
-    query = query.where('rating').gte(req.query.ratedAtLeast);
-  }
-
-  if (!isNaN(req.query.ratedAtMost)) {
-    query = query.where('rating').lte(req.query.ratedAtMost);
   }
 
   return query;
