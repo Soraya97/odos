@@ -30,7 +30,7 @@
             "type": "String",
             "optional": false,
             "field": "name",
-            "description": "<p>The name of the list</p>"
+            "description": "<p>The name of the list sorted alphabetically</p>"
           },
           {
             "group": "Response body",
@@ -337,7 +337,7 @@
             "type": "String",
             "optional": false,
             "field": "name",
-            "description": "<p>The name of the list</p>"
+            "description": "<p>The name of the list sorted alphabetically</p>"
           },
           {
             "group": "Response body",
@@ -473,7 +473,7 @@
     "examples": [
       {
         "title": "Example",
-        "content": "GET /users/5f981e64eeac3042b0e27b86/lists/5f9fca8bf677aa3dcce8a620 HTTP/1.1",
+        "content": "GET /users/5f981e64eeac3042b0e27b86/lists/5f98321aabf23b2cfce0fe76 HTTP/1.1",
         "type": "json"
       }
     ],
@@ -507,7 +507,7 @@
             "type": "String",
             "optional": false,
             "field": "name",
-            "description": "<p>The name of the list</p>"
+            "description": "<p>The name of the list sorted alphabetically</p>"
           },
           {
             "group": "Response body",
@@ -633,7 +633,7 @@
             "type": "String",
             "optional": false,
             "field": "name",
-            "description": "<p>The name of the list</p>"
+            "description": "<p>The name of the list sorted alphabetically</p>"
           },
           {
             "group": "Response body",
@@ -767,14 +767,14 @@
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "userId",
-            "description": "<p>An Id who is referencing to the user who create the picture</p>"
+            "description": "<p>An Id which is referencing to the user who create the picture</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "201 Created",
-          "content": "HTTP/1.1 201 Created\nContent-Type: application/json\nLocation: https://odos-archioweb.herokuapp.com/5f981e64eeac3042b0e27b86\n\n[{\n   \"picture\":[],\n   \"public\":true,\n   \"_id\":\"5f98321aabf23b2cfce0fe76\",\n   \"name\":\"Vacances\",\n   \"creationDate\":\"2020-10-27T14:43:38.484Z\",\n   \"modificationDate\":\"2020-10-27T14:43:38.485Z\",\n   \"user\":\"5f981e64eeac3042b0e27b86\",\"__v\":0}\n }]",
+          "content": "HTTP/1.1 201 Created\nContent-Type: application/json\nLocation: https://odos-archioweb.herokuapp.com/5fa50ef8ab605f53789adb8c\n\n{\n   \"description\": \"Plage de sable\",\n   \"location\": {\n     \"type\": \"Point\",\n      \"coordinates\": [\n         48.862725,\n         2.287592\n       ]\n    },\n   \"picture\": \"https://www.partir.com/images/plages/thailande-plage-rai-leh.jpg\",\n   \"creation_date\": \"2020-11-06T08:53:12.467Z\",\n   \"last_mod_date\": \"2020-11-06T08:53:12.467Z\",\n   \"userId\": \"5f981e64eeac3042b0e27b86\",\n   \"id\": \"5fa50ef8ab605f53789adb8c\"\n }",
           "type": "json"
         }
       ]
@@ -782,7 +782,7 @@
     "examples": [
       {
         "title": "Example",
-        "content": "POST /users/5f981e64eeac3042b0e27b86/pictures HTTP/1.1\nContent-Type: application/json\n\n{\n  \"name\": \"Vacances\",\n}",
+        "content": "POST /users/5f981e64eeac3042b0e27b86/pictures HTTP/1.1\nContent-Type: application/json\n\n{\n    \"description\": \"Plage de sable\",\n    \"location\":\n       {\n         \"type\": \"Point\",\n         \"coordinates\": [12.930719, 100.878393]\n       },\n     \"picture\":\"https://www.partir.com/images/plages/thailande-plage-rai-leh.jpg\"\n }",
         "type": "json"
       }
     ],
@@ -809,6 +809,7 @@
           {
             "group": "Request body",
             "type": "Number",
+            "size": "longitude/latitude",
             "optional": false,
             "field": "coordinates",
             "description": "<p>Coordinates of the picture</p>"
@@ -832,13 +833,25 @@
             "optional": false,
             "field": "422/UnprocessableEntity",
             "description": "<p>Some of the Picture's properties are invalid</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"name\": ValidatorError: List name Oarty already exists {\n      \"properties\": [Object],\n      \"kind\": \"unique\",\n      \"path\": \"name\",\n      \"value\": \"Party\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"List validation failed\"\n}",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"location.coordinates\": ValidatorError: 12.930719, 100.878393 is not a valid longitude/latitude(/altitude) coordinates array {\n      \"properties\": [Object],\n      \"kind\": \"user defined\",\n      \"path\": \"location.coordinates\",\n      \"value\": \"[12.930719, 100.878393]\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"Picture validation failed\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -855,7 +868,7 @@
     "examples": [
       {
         "title": "Example",
-        "content": "DELETE /users/5f981e64eeac3042b0e27b86/pictures/ HTTP/1.1",
+        "content": "DELETE /users/5f981e64eeac3042b0e27b86/pictures/5fa50ef8ab605f53789adb8c HTTP/1.1",
         "type": "json"
       }
     ],
@@ -892,13 +905,25 @@
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No Picture was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID ..",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID 5fa50ef8ab605f53789adb8c",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -915,7 +940,7 @@
     "examples": [
       {
         "title": "Example",
-        "content": "PATCH /users/5f981e64eeac3042b0e27b86/pictures/ HTTP/1.1\nContent-Type: application/json\n\n{\n  \"name\": Plages\n}",
+        "content": "PATCH /users/5f981e64eeac3042b0e27b86/pictures/5fa50ef8ab605f53789adb8c HTTP/1.1\nContent-Type: application/json\n\n{\n  \"description\": \"Plage de sable à Pattaya\"\n}",
         "type": "json"
       }
     ],
@@ -923,7 +948,7 @@
       "examples": [
         {
           "title": "200 OK",
-          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n [{\n   \"picture\":[],\n   \"public\":true,\n   \"_id\":\"5f98321aabf23b2cfce0fe76\",\n   \"name\":\"Plages\",\n   \"creationDate\":\"2020-10-27T14:43:38.484Z\",\n   \"modificationDate\":\"2020-10-27T14:43:38.485Z\",\n   \"user\":\"5f981e64eeac3042b0e27b86\",\"__v\":0}\n }]",
+          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\n   \"description\": \"Plage de sable à Pattaya\",\n   \"location\": {\n     \"type\": \"Point\",\n      \"coordinates\": [\n         48.862725,\n         2.287592\n       ]\n    },\n   \"picture\": \"https://www.partir.com/images/plages/thailande-plage-rai-leh.jpg\",\n   \"creation_date\": \"2020-11-06T08:53:12.467Z\",\n   \"last_mod_date\": \"2020-12-06T11:54:16.467Z\",\n   \"userId\": \"5f981e64eeac3042b0e27b86\",\n   \"id\": \"5fa50ef8ab605f53789adb8c\"\n }",
           "type": "json"
         }
       ],
@@ -977,7 +1002,7 @@
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "userId",
-            "description": "<p>An Id who is referencing to the user who create the picture</p>"
+            "description": "<p>An Id which is referencing to the user who create the picture</p>"
           }
         ]
       }
@@ -1014,6 +1039,7 @@
           {
             "group": "Request body",
             "type": "Number",
+            "size": "longitude/latitude",
             "optional": false,
             "field": "coordinates",
             "description": "<p>Coordinates of the picture</p>"
@@ -1044,18 +1070,30 @@
             "optional": false,
             "field": "422/UnprocessableEntity",
             "description": "<p>Some of the Picture's properties are invalid</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID ..",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID 5fa50ef8ab605f53789adb8c",
           "type": "json"
         },
         {
           "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"name\": ValidatorError: List name Oarty already exists {\n      \"properties\": [Object],\n      \"kind\": \"unique\",\n      \"path\": \"name\",\n      \"value\": \"Party\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"List validation failed\"\n}",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"location.coordinates\": ValidatorError: 12.930719, 100.878393 is not a valid longitude/latitude(/altitude) coordinates array {\n      \"properties\": [Object],\n      \"kind\": \"user defined\",\n      \"path\": \"location.coordinates\",\n      \"value\": \"[12.930719, 100.878393]\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"Picture validation failed\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]
@@ -1063,12 +1101,12 @@
   },
   {
     "type": "get",
-    "url": "/users/:userId/pictures/:pictureId",
-    "title": "Retrieve a picture",
-    "name": "RetrievePicture",
+    "url": "/users/:userId/pictures",
+    "title": "Retrieve all pictures",
+    "name": "RetrieveAllPictures",
     "group": "Picture",
     "version": "1.0.0",
-    "description": "<p>Retrieves one Picture.</p>",
+    "description": "<p>Retrieves a list of Picture.</p>",
     "examples": [
       {
         "title": "Example",
@@ -1080,7 +1118,7 @@
       "examples": [
         {
           "title": "200 OK",
-          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n[{\n\n }]",
+          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n[{\n   \"description\": \"Plage de sable\",\n   \"location\": {\n     \"type\": \"Point\",\n      \"coordinates\": [\n         48.862725,\n         2.287592\n       ]\n    },\n   \"picture\": \"https://www.partir.com/images/plages/thailande-plage-rai-leh.jpg\",\n   \"creation_date\": \"2020-11-06T08:53:12.467Z\",\n   \"last_mod_date\": \"2020-11-06T08:53:12.467Z\",\n   \"userId\": \"5f981e64eeac3042b0e27b86\",\n   \"id\": \"5fa50ef8ab605f53789adb8c\"\n },\n {\n   \"description\": \"Parc en Suisse\",\n   \"location\": {\n     \"type\": \"Point\",\n      \"coordinates\": [\n         50.52464,\n         2.1246\n       ]\n    },\n   \"picture\": \"https://www.coucoulasuisse.com/images/parc-national-suisse.jpg\",\n   \"creation_date\": \"2020-10-06T09:53:12.467Z\",\n   \"last_mod_date\": \"2020-10-06T09:53:12.467Z\",\n   \"userId\": \"5f981e64eeac3042b0e27b86\",\n   \"id\": \"5fa50ef8ab605f53798dddd8c\"\n }]",
           "type": "json"
         }
       ],
@@ -1134,7 +1172,7 @@
             "type": "Schema.Types.ObjectId",
             "optional": false,
             "field": "userId",
-            "description": "<p>An Id who is referencing to the user who create the picture</p>"
+            "description": "<p>An Id which is referencing to the user who create the picture</p>"
           }
         ]
       }
@@ -1163,13 +1201,151 @@
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No Picture was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "404 Not Found",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID ..",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID 5fa50ef8ab605f53789adb8c",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/users/:userId/pictures/:pictureId",
+    "title": "Retrieve a picture",
+    "name": "RetrievePicture",
+    "group": "Picture",
+    "version": "1.0.0",
+    "description": "<p>Retrieves one Picture.</p>",
+    "examples": [
+      {
+        "title": "Example",
+        "content": "GET /users/5f981e64eeac3042b0e27b86/pictures/5fa50ef8ab605f53789adb8c HTTP/1.1",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "200 OK",
+          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\n   \"description\": \"Plage de sable\",\n   \"location\": {\n     \"type\": \"Point\",\n      \"coordinates\": [\n         48.862725,\n         2.287592\n       ]\n    },\n   \"picture\": \"https://www.partir.com/images/plages/thailande-plage-rai-leh.jpg\",\n   \"creation_date\": \"2020-11-06T08:53:12.467Z\",\n   \"last_mod_date\": \"2020-11-06T08:53:12.467Z\",\n   \"userId\": \"5f981e64eeac3042b0e27b86\",\n   \"id\": \"5fa50ef8ab605f53789adb8c\"\n }",
+          "type": "json"
+        }
+      ],
+      "fields": {
+        "Response body": [
+          {
+            "group": "Response body",
+            "type": "String",
+            "size": "3...50",
+            "optional": false,
+            "field": "description",
+            "description": "<p>The description of the picture (must be unique)</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "location",
+            "description": "<p>The location of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "coordinates",
+            "description": "<p>Coordinates of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>The url of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Date",
+            "optional": false,
+            "field": "creation_date",
+            "description": "<p>The date of the picture's creation</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Date",
+            "optional": false,
+            "field": "last_mod_date",
+            "description": "<p>The date at which the picture was modified</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Schema.Types.ObjectId",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>An Id which is referencing to the user who create the picture</p>"
+          }
+        ]
+      }
+    },
+    "filename": "routes/pictures.js",
+    "groupTitle": "Picture",
+    "parameter": {
+      "fields": {
+        "URL path parameters": [
+          {
+            "group": "URL path parameters",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique identifier of the picture to retrieve</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "404/NotFound",
+            "description": "<p>No Picture was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "403/Forbidden",
+            "description": "<p>You're not allowed to do that</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404 Not Found",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID 5fa50ef8ab605f53789adb8c",
+          "type": "json"
+        },
+        {
+          "title": "403 Forbidden",
+          "content": "HTTP/1.1 403 Forbidden\nContent-Type: text/plain\n\nYou're not allowed to do that",
           "type": "json"
         }
       ]

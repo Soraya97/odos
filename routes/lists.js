@@ -120,7 +120,7 @@ router.get('/', utils.authenticate, authorization, function(req, res, next) {
  * @apiUse ListAuthorizationError
  *
  * @apiExample Example
- *     GET /users/5f981e64eeac3042b0e27b86/lists/5f9fca8bf677aa3dcce8a620 HTTP/1.1
+ *     GET /users/5f981e64eeac3042b0e27b86/lists/5f98321aabf23b2cfce0fe76 HTTP/1.1
  *
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
@@ -394,7 +394,7 @@ function authorization(req, res, next) {
  * @apiDefine ListInResponseBody
  * @apiSuccess (Response body) {Boolean{default: false}} public Make the list private or public
  * @apiSuccess (Response body) {String} id An Id which is referencing the list (eg: `5f98321aabf23b2cfce0fe76`)
- * @apiSuccess (Response body) {String} name The name of the list
+ * @apiSuccess (Response body) {String} name The name of the list sorted alphabetically
  * @apiSuccess (Response body) {Date} creationDate The date at which the list was created
  * @apiSuccess (Response body) {Date} modificationDate The date at which the list was modified
  * @apiSuccess (Response body) {Schema.Types.ObjectId} userId An Id who is referencing to the user who create the list

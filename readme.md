@@ -65,6 +65,7 @@ Application for sharing geotagged travel photos with favorites list function.
 ### User
 
 - You cannot see, edit, someone or delete else's data
+- You cannot modify the creation dates
 
 ### Pictures of places
 
