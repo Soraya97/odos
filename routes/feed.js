@@ -41,6 +41,8 @@ const List = require('../models/list');
  *
  * @apiParam (URL query parameters) {Date} [min_date] Select only pictures before this specified date 
  * @apiParam (URL query parameters) {Date} [max_date] Select only pictures after this specified date 
+ * @apiParam (URL query parameters) {Number} [page] Which page to display
+ * @apiParam (URL query parameters) {Number} [pageSize] How many items per page to display
  *
  * @apiExample Example
  *     GET /feed?page=1&pageSize=1 HTTP/1.1
@@ -137,9 +139,4 @@ function queryPictures(req) {
   return query;
 }
 
-<<<<<<< HEAD
-
 module.exports = router;
-=======
-module.exports = router;
->>>>>>> 0641f29b147e92f639221f285d5c07b1e0b5fa3b

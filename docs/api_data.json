@@ -86,6 +86,20 @@
             "optional": true,
             "field": "max_date",
             "description": "<p>Select only pictures after this specified date</p>"
+          },
+          {
+            "group": "URL query parameters",
+            "type": "Number",
+            "optional": true,
+            "field": "page",
+            "description": "<p>Which page to display</p>"
+          },
+          {
+            "group": "URL query parameters",
+            "type": "Number",
+            "optional": true,
+            "field": "pageSize",
+            "description": "<p>How many items per page to display</p>"
           }
         ]
       }
@@ -223,6 +237,13 @@
             "group": "Error 4xx",
             "type": "Object",
             "optional": false,
+            "field": "404/NotFound",
+            "description": "<p>No List/User was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
             "field": "403/Forbidden",
             "description": "<p>You're not allowed to do that</p>"
           },
@@ -239,6 +260,11 @@
         {
           "title": "422 Unprocessable Entity",
           "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"errors\": {\n    \"name\": ValidatorError: List name Party already exists {\n      \"properties\": [Object],\n      \"kind\": \"unique\",\n      \"path\": \"name\",\n      \"value\": \"Party\",\n      \"reason\": undefined,\n      [Symbol(mongoose:validatorError)]: true\n    }\n  },\n \"_message\": \"List validation failed\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "404 Not Found",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo list found with ID 5f98321aabf23b2cfce0fe76",
           "type": "json"
         },
         {
@@ -430,10 +456,48 @@
     "group": "List",
     "version": "1.0.0",
     "description": "<p>Partially updates a list's data (only the properties found in the request body will be updated). All properties are optional.</p>",
+    "parameter": {
+      "fields": {
+        "Request body": [
+          {
+            "group": "Request body",
+            "type": "String",
+            "size": "minlength: 3",
+            "optional": false,
+            "field": "name",
+            "description": "<p>The name of the list (must be unique)</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "Boolean",
+            "size": "default: false",
+            "optional": false,
+            "field": "public",
+            "description": "<p>Make the list private or public</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "Schema.Types.ObjectId",
+            "optional": false,
+            "field": "pictureId",
+            "description": "<p>An id which is referencing to the picture which is in the list (eg: <code>5fa50ef8ab605f53789adb8c</code>)</p>"
+          }
+        ],
+        "URL path parameters": [
+          {
+            "group": "URL path parameters",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique identifier of the list to retrieve</p>"
+          }
+        ]
+      }
+    },
     "examples": [
       {
         "title": "Example",
-        "content": "PATCH /users/5f981e64eeac3042b0e27b86/lists/5f9fca8bf677aa3dcce8a620 HTTP/1.1\nContent-Type: application/json\n\n{\n  \"name\": Plages\n}",
+        "content": "PATCH /users/5f981e64eeac3042b0e27b86/lists/5f9fca8bf677aa3dcce8a620 HTTP/1.1\nContent-Type: application/json\n\n{\n  \"name\": \"Plages\"\n}",
         "type": "json"
       }
     ],
@@ -502,51 +566,6 @@
     },
     "filename": "routes/lists.js",
     "groupTitle": "List",
-    "parameter": {
-      "fields": {
-        "URL path parameters": [
-          {
-            "group": "URL path parameters",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The unique identifier of the list to retrieve</p>"
-          }
-        ],
-        "Request body": [
-          {
-            "group": "Request body",
-            "type": "String",
-            "size": "minlength: 3",
-            "optional": false,
-            "field": "name",
-            "description": "<p>The name of the list (must be unique)</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "Boolean",
-            "size": "default: false",
-            "optional": false,
-            "field": "public",
-            "description": "<p>Make the list private or public</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "Schema.Types.ObjectId",
-            "optional": false,
-            "field": "userId",
-            "description": "<p>An id which is referencing to the user who create the list (eg: <code>5f981e64eeac3042b0e27b86</code>)</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "Schema.Types.ObjectId",
-            "optional": false,
-            "field": "pictureId",
-            "description": "<p>An id which is referencing to the picture which is in the list (eg: <code>5fa50ef8ab605f53789adb8c</code>)</p>"
-          }
-        ]
-      }
-    },
     "error": {
       "fields": {
         "Error 4xx": [
@@ -1479,13 +1498,6 @@
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No Picture/User was found corresponding to the ID in the URL path</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
-            "field": "401/Unauthorized",
-            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1493,11 +1505,6 @@
         {
           "title": "404 Not Found",
           "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID 5fa50ef8ab605f53789adb8c",
-          "type": "json"
-        },
-        {
-          "title": "401 Unauthorized",
-          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]
@@ -1605,13 +1612,6 @@
             "optional": false,
             "field": "404/NotFound",
             "description": "<p>No Picture/User was found corresponding to the ID in the URL path</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
-            "field": "401/Unauthorized",
-            "description": "<p>You're not allowed to do that</p>"
           }
         ]
       },
@@ -1619,11 +1619,6 @@
         {
           "title": "404 Not Found",
           "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo Picture found with ID 5fa50ef8ab605f53789adb8c",
-          "type": "json"
-        },
-        {
-          "title": "401 Unauthorized",
-          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nYou're not connected you don't have access",
           "type": "json"
         }
       ]

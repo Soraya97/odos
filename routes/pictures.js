@@ -29,7 +29,6 @@ const List = require('../models/list');
  * @apiUse PictureInResponseBody
  * @apiUse PictureIncludes
  * @apiUse PictureNotFoundError
- * @apiUse UserUnauthorizedError
  *
  * @apiExample Example
  *     GET /users/5f981e64eeac3042b0e27b86/pictures/ HTTP/1.1
@@ -97,7 +96,6 @@ router.get('/', utils.getUser, function (req, res, next) {
  * @apiUse PictureInResponseBody
  * @apiUse PictureIncludes
  * @apiUse PictureNotFoundError
- * @apiUse UserUnauthorizedError
  *
  * @apiExample Example
  *     GET /users/5f981e64eeac3042b0e27b86/pictures/5fa50ef8ab605f53789adb8c HTTP/1.1
