@@ -148,7 +148,7 @@ router.get('/:pictureId', utils.getUser, getPicture, function (req, res, next) {
  *         "location":
  *            {
  *              "type": "Point",
- *              "coordinates": [12.930719, 100.878393]
+ *              "coordinates": [100.878393, 12.930719]
  *            },
  *          "picture":"https://www.partir.com/images/plages/thailande-plage-rai-leh.jpg"
  *      }

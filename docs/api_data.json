@@ -217,7 +217,7 @@
     "examples": [
       {
         "title": "Example",
-        "content": "POST /users/5f981e64eeac3042b0e27b86/lists HTTP/1.1\nContent-Type: application/json\n\n{\n  \"name\": \"Vacances\",\n}",
+        "content": "POST /users/5f981e64eeac3042b0e27b86/lists HTTP/1.1\nContent-Type: application/json\n\n{\n  \"name\": \"Vacances\"\n}",
         "type": "json"
       }
     ],
@@ -505,7 +505,7 @@
       "examples": [
         {
           "title": "200 OK",
-          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n [{\n   \"picture\":[],\n   \"public\":true,\n   \"_id\":\"5f98321aabf23b2cfce0fe76\",\n   \"name\":\"Plages\",\n   \"creationDate\":\"2020-10-27T14:43:38.484Z\",\n   \"modificationDate\":\"2020-10-27T14:43:38.485Z\",\n   \"user\":\"5f981e64eeac3042b0e27b86\",\"__v\":0}\n }]",
+          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n [{\n   \"picture\":[],\n   \"public\":true,\n   \"_id\":\"5f98321aabf23b2cfce0fe76\",\n   \"name\":\"Plages\",\n   \"creationDate\":\"2020-10-27T14:43:38.484Z\",\n   \"modificationDate\":\"2020-10-27T14:43:38.485Z\",\n   \"user\":\"5f981e64eeac3042b0e27b86\"}\n }]",
           "type": "json"
         }
       ],
@@ -642,7 +642,7 @@
       "examples": [
         {
           "title": "200 OK",
-          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n[{\n   \"picture\":[],\n   \"public\":true,\n   \"_id\":\"5f98321aabf23b2cfce0fe76\",\n   \"name\":\"Vacances\",\n   \"creationDate\":\"2020-10-27T14:43:38.484Z\",\n   \"modificationDate\":\"2020-10-27T14:43:38.485Z\",\n   \"user\":\"5f981e64eeac3042b0e27b86\",\"__v\":0}\n }]",
+          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n[{\n   \"picture\":[],\n   \"public\":true,\n   \"_id\":\"5f98321aabf23b2cfce0fe76\",\n   \"name\":\"Vacances\",\n   \"creationDate\":\"2020-10-27T14:43:38.484Z\",\n   \"modificationDate\":\"2020-10-27T14:43:38.485Z\",\n   \"user\":\"5f981e64eeac3042b0e27b86\"}\n }]",
           "type": "json"
         }
       ],
@@ -780,7 +780,7 @@
       "examples": [
         {
           "title": "200 OK",
-          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n[{\n   \"picture\":[],\n   \"public\":true,\n   \"_id\":\"5f9fc0c61704e25b2c33e410\",\n   \"name\":\"Chat\",\n   \"creationDate\":\"2020-11-02T08:18:14.908Z\",\n   \"modificationDate\":\"2020-11-02T08:18:14.908Z\",\n   \"user\":\"5f981e64eeac3042b0e27b86\",\"__v\":0},\n {\n   \"picture\":[],\n   \"public\":true,\n   \"_id\":\"5f9fc06afa4bf011e030625c\",\n   \"name\":\"Party\",\n   \"creationDate\":\"2020-11-02T08:16:42.329Z\",\n   \"modificationDate\":\"2020-11-02T08:16:42.329Z\",\n   \"user\":\"5f981e64eeac3042b0e27b86\",\"__v\":0}\n}]",
+          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n[{\n   \"picture\":[],\n   \"public\":true,\n   \"_id\":\"5f9fc0c61704e25b2c33e410\",\n   \"name\":\"Chat\",\n   \"creationDate\":\"2020-11-02T08:18:14.908Z\",\n   \"modificationDate\":\"2020-11-02T08:18:14.908Z\",\n   \"user\":\"5f981e64eeac3042b0e27b86\"},\n {\n   \"picture\":[],\n   \"public\":true,\n   \"_id\":\"5f9fc06afa4bf011e030625c\",\n   \"name\":\"Party\",\n   \"creationDate\":\"2020-11-02T08:16:42.329Z\",\n   \"modificationDate\":\"2020-11-02T08:16:42.329Z\",\n   \"user\":\"5f981e64eeac3042b0e27b86\"}\n}]",
           "type": "json"
         }
       ],
@@ -1046,7 +1046,7 @@
     "examples": [
       {
         "title": "Example",
-        "content": "POST /users/5f981e64eeac3042b0e27b86/pictures HTTP/1.1\nContent-Type: application/json\n\n{\n    \"description\": \"Plage de sable\",\n    \"location\":\n       {\n         \"type\": \"Point\",\n         \"coordinates\": [12.930719, 100.878393]\n       },\n     \"picture\":\"https://www.partir.com/images/plages/thailande-plage-rai-leh.jpg\"\n }",
+        "content": "POST /users/5f981e64eeac3042b0e27b86/pictures HTTP/1.1\nContent-Type: application/json\n\n{\n    \"description\": \"Plage de sable\",\n    \"location\":\n       {\n         \"type\": \"Point\",\n         \"coordinates\": [100.878393, 12.930719]\n       },\n     \"picture\":\"https://www.partir.com/images/plages/thailande-plage-rai-leh.jpg\"\n }",
         "type": "json"
       }
     ],

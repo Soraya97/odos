@@ -39,7 +39,7 @@ const webSocket = require('../websocket/dispatcher');
  *        "name":"Chat",
  *        "creationDate":"2020-11-02T08:18:14.908Z",
  *        "modificationDate":"2020-11-02T08:18:14.908Z",
- *        "user":"5f981e64eeac3042b0e27b86","__v":0},
+ *        "user":"5f981e64eeac3042b0e27b86"},
  *      {
  *        "picture":[],
  *        "public":true,
@@ -47,7 +47,7 @@ const webSocket = require('../websocket/dispatcher');
  *        "name":"Party",
  *        "creationDate":"2020-11-02T08:16:42.329Z",
  *        "modificationDate":"2020-11-02T08:16:42.329Z",
- *        "user":"5f981e64eeac3042b0e27b86","__v":0}
+ *        "user":"5f981e64eeac3042b0e27b86"}
  *     }]
  */
 
@@ -145,7 +145,7 @@ router.get('/', utils.getUser, utils.authenticate, authorization, function(req, 
  *        "name":"Vacances",
  *        "creationDate":"2020-10-27T14:43:38.484Z",
  *        "modificationDate":"2020-10-27T14:43:38.485Z",
- *        "user":"5f981e64eeac3042b0e27b86","__v":0}
+ *        "user":"5f981e64eeac3042b0e27b86"}
  *      }]
  */
 router.get('/:listId', utils.authenticate, utils.getUser, getList, authorizationUserList, function(req, res, next) {
@@ -187,7 +187,7 @@ router.get('/:listId', utils.authenticate, utils.getUser, getList, authorization
  *     Content-Type: application/json
  *
  *     {
- *       "name": "Vacances",
+ *       "name": "Vacances"
  *     }
  *
  * @apiSuccessExample 201 Created
@@ -260,7 +260,7 @@ router.post('/', utils.authenticate, utils.getUser, authorization, function(req,
  *        "name":"Plages",
  *        "creationDate":"2020-10-27T14:43:38.484Z",
  *        "modificationDate":"2020-10-27T14:43:38.485Z",
- *        "user":"5f981e64eeac3042b0e27b86","__v":0}
+ *        "user":"5f981e64eeac3042b0e27b86"}
  *      }]
  */
 router.patch('/:listId', utils.authenticate, utils.getUser, getList, authorizationUserList, function(req, res, next) {
