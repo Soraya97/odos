@@ -1,3 +1,4 @@
+// ------ REQUIRE ------
 const {
   expect
 } = require('chai');
@@ -7,12 +8,13 @@ const {
   cleanUpDatabase
 } = require('./utils');
 const jwt = require('jsonwebtoken');
-
 const app = require('../app');
+const config = require('../config');
+
+// ------ MODELS ------
 const User = require('../models/user');
 const Picture = require('../models/picture');
 const List = require('../models/list');
-const config = require('../config');
 
 after(mongoose.disconnect);
 beforeEach(cleanUpDatabase);

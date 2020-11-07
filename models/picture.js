@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -69,12 +70,13 @@ function validateGeoJsonCoordinates(value) {
  * Removes extra MongoDB properties from serialized users.
  */
 function transformJsonPicture(doc, json, options) {
-
   // Remove MongoDB _id & __v (there's a default virtual "id" property)
   delete json._id;
   delete json.__v;
   return json;
 }
+
+pictureSchema.plugin(uniqueValidator, { message: 'Description {VALUE} already exists' });
 
 // Create the model from the schema and export it
 module.exports = mongoose.model('Pictures', pictureSchema);
