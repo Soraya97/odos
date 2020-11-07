@@ -1,9 +1,8 @@
+// ------ REQUIRE ------
 const express = require('express');
 const router = express.Router({
   mergeParams: true
 });
-const List = require('../models/list');
-const Picture = require('../models/picture');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const debug = require('debug')('demo:lists');
@@ -11,6 +10,13 @@ const utils = require('./utils');
 
 // ------ WEBSOCKET ------
 const webSocket = require('../websocket/dispatcher');
+
+// ------ MODELS ------
+const List = require('../models/list');
+const Picture = require('../models/picture');
+
+
+// ------ RESOURCES ODOS ------
 
 /**
  * @api {get} /users/:userId/lists Retrieve all lists
@@ -50,7 +56,6 @@ const webSocket = require('../websocket/dispatcher');
  *        "user":"5f981e64eeac3042b0e27b86"}
  *     }]
  */
-
 router.get('/', utils.getUser, utils.authenticate, authorization, function(req, res, next) {
   // Find the lists
   List
@@ -71,50 +76,52 @@ router.get('/', utils.getUser, utils.authenticate, authorization, function(req, 
 
       res.send(lists);
     });
-//   Picture.aggregate([{
-//       $lookup: {
-//         from: 'lists',
-//         localField: '_id',
-//         foreignField: 'picture',
-//         as: 'nbPictures'
-//       }
-//     },
-//     {
-//       $unwind: '$nbPictures'
-//     },
-//     {
-//       $group: {
-//         _id: '$_id',
-//         username: {
-//           $first: '$username'
-//         },
-//         nbPictures: {
-//           $sum: 1
-//         }
-//       }
-//     },
-//     {
-//       $sort: {
-//         username: 1
-//       }
-//     },
-//   ], (err, lists) => {
-//     if (err) {
-//       return next(err);
-//     }
-//
-//     res.send(lists.map(list => {
-//
-//       // Transform the aggregated object into a Mongoose model.
-//       const serialized = new Picture(list).toJSON();
-//
-//       // Add the aggregated property.
-//       serialized.nbPictures = list.nbPictures;
-//
-//       return serialized;
-//     }));
-// });
-  });
+
+  // Aggregation of pictures and lists to show how many picutres a list contains
+  //   Picture.aggregate([{
+  //       $lookup: {
+  //         from: 'lists',
+  //         localField: '_id',
+  //         foreignField: 'picture',
+  //         as: 'nbPictures'
+  //       }
+  //     },
+  //     {
+  //       $unwind: '$nbPictures'
+  //     },
+  //     {
+  //       $group: {
+  //         _id: '$_id',
+  //         username: {
+  //           $first: '$username'
+  //         },
+  //         nbPictures: {
+  //           $sum: 1
+  //         }
+  //       }
+  //     },
+  //     {
+  //       $sort: {
+  //         username: 1
+  //       }
+  //     },
+  //   ], (err, lists) => {
+  //     if (err) {
+  //       return next(err);
+  //     }
+  //
+  //     res.send(lists.map(list => {
+  //
+  //       // Transform the aggregated object into a Mongoose model.
+  //       const serialized = new Picture(list).toJSON();
+  //
+  //       // Add the aggregated property.
+  //       serialized.nbPictures = list.nbPictures;
+  //
+  //       return serialized;
+  //     }));
+  // });
+});
 
 /**
  * @api {get} /users/:userId/lists/:listId Retrieve a list
@@ -151,16 +158,6 @@ router.get('/', utils.getUser, utils.authenticate, authorization, function(req, 
 router.get('/:listId', utils.authenticate, utils.getUser, getList, authorizationUserList, function(req, res, next) {
   // Find the list
   res.send(req.list);
-  // List
-  //   .find(req.list)
-  //   .populate('user')
-  //   .populate('picture')
-  //   .exec(function(err, list) {
-  //     if (err) {
-  //       return next(err);
-  //     }
-  //     res.send(list);
-  //   });
 });
 
 
@@ -208,8 +205,7 @@ router.get('/:listId', utils.authenticate, utils.getUser, getList, authorization
 router.post('/', utils.authenticate, utils.getUser, authorization, function(req, res, next) {
   // Retrieve the user ID from the URL.
   const user = req.params.userId;
-  // res.send(req.params.userId);
-  // Create list and send response...
+  // Create list and send response
   const newList = new List(req.body);
   newList.set('user', user);
 
@@ -218,7 +214,7 @@ router.post('/', utils.authenticate, utils.getUser, authorization, function(req,
       return next(err);
     }
 
-    debug(`New list "${savedList.name}"`);
+    debug(`New list "${savedList.name}" created`);
     res.status(201).send(savedList);
   });
 });
@@ -284,7 +280,7 @@ router.patch('/:listId', utils.authenticate, utils.getUser, getList, authorizati
       return next(err);
     }
 
-    debug(`Updated list "${savedList.name}"`);
+    debug(`List "${savedList.name}" updated`);
     res.send(savedList);
   });
 });
@@ -348,13 +344,13 @@ router.delete('/:listId', utils.authenticate, utils.getUser, getList, authorizat
       return next(err);
     }
 
-    debug(`Deleted list "${req.list.name}"`);
+    debug(`List "${req.list.name}" deleted`);
     res.sendStatus(204);
   });
 });
 
 
-/** OTHERS MIDDLEWARES**/
+// ------ FUNCTIONS ------
 
 // Get the list by id
 function getList(req, res, next) {
@@ -376,6 +372,7 @@ function getList(req, res, next) {
   });
 }
 
+// Responds with 404 Not Found and a message indicating that the list with the specified ID was not found
 function listNotFound(res, listId) {
   return res.status(404).type('text').send(`No list found with ID ${listId}`);
 }

@@ -16,13 +16,7 @@ const Picture = require('../models/picture');
 const List = require('../models/list');
 
 
-
 // ------ RESOURCES ODOS ------
-/**
- * Show all pictures
- * Pagination
- * Example : http://localhost:4000/feed?page=1&pageSize=1
- */
 
  /**
  * @api {get} /feed Feed of all pictures
@@ -39,8 +33,8 @@ const List = require('../models/list');
  * @apiSuccess (Response body) {Date} last_mod_date The date at which the picture was modified
  * @apiSuccess (Response body) {Schema.Types.ObjectId} userId An Id which is referencing to the user who create the picture
  *
- * @apiParam (URL query parameters) {Date} [min_date] Select only pictures before this specified date 
- * @apiParam (URL query parameters) {Date} [max_date] Select only pictures after this specified date 
+ * @apiParam (URL query parameters) {Date} [min_date] Select only pictures before this specified date
+ * @apiParam (URL query parameters) {Date} [max_date] Select only pictures after this specified date
  * @apiParam (URL query parameters) {Number} [page] Which page to display
  * @apiParam (URL query parameters) {Number} [pageSize] How many items per page to display
  *
@@ -125,6 +119,10 @@ router.get('/', function(req, res, next) {
   });
 });
 
+
+// ------ FUNCTIONS ------
+
+// Returns a Mongoose query that will retrieve pictures filtered with the URL query parameters.
 function queryPictures(req) {
 
   let query = Picture.find();

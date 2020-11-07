@@ -1,8 +1,12 @@
+// ------ REQUIRE ------
+const config = require('../config');
+
+// ------ MODELS ------
 const User = require('../models/user');
 const Picture = require('../models/picture');
 const List = require('../models/list');
-const config = require('../config');
 
+// Empty the database
 exports.cleanUpDatabase = async function() {
   await Promise.all([
     User.deleteMany(),
@@ -11,7 +15,7 @@ exports.cleanUpDatabase = async function() {
   ]);
 };
 
-
+// Generate a token for authentication
 exports.generateValidToken = function(user) {
   const exp = (new Date().getTime() + 7 * 24 * 3600 * 1000) / 1000;
   const payload = {

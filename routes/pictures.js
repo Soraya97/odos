@@ -8,9 +8,6 @@ const ObjectId = mongoose.Types.ObjectId;
 const debug = require('debug')('demo:people');
 const utils = require('./utils');
 
-// ------ WEBSOCKET ------
-const webSocket = require('../websocket/dispatcher');
-
 // ------ MODELS ------
 const Picture = require('../models/picture');
 const List = require('../models/list');
@@ -68,8 +65,6 @@ const List = require('../models/list');
  *        "id": "5fa50ef8ab605f53798dddd8c"
  *      }]
  */
-
-/* GET pictures listing. */
 router.get('/', utils.getUser, function (req, res, next) {
   Picture
   .find({
@@ -186,7 +181,7 @@ router.post('/', utils.getUser, utils.authenticate, authorization, function (req
       return next(err);
     }
     // Send the saved document in the response
-    debug(`New picture "${savedPicture.description}"`);
+    debug(`New picture "${savedPicture.description}" created`);
     res.status(201).send(savedPicture);
   });
 });
@@ -238,7 +233,6 @@ router.post('/', utils.getUser, utils.authenticate, authorization, function (req
  *      }
  */
 router.patch('/:pictureId', utils.authenticate, utils.getUser, getPicture, authorizationUserPicture, function (req, res, next) {
-  // res.send(req.picture.name);
   // Update all properties (regardless of whether they are in the request body or not)
   if (req.body.description !== undefined) {
     req.picture.description = req.body.description;
@@ -255,7 +249,7 @@ router.patch('/:pictureId', utils.authenticate, utils.getUser, getPicture, autho
       return next(err);
     }
 
-    debug(`Updated picture "${savedPicture.description}"`);
+    debug(`Picture "${savedPicture.description}" updated`);
     res.send(savedPicture);
   });
 });
@@ -285,10 +279,13 @@ router.delete('/:pictureId', utils.authenticate, utils.getUser, getPicture, auth
       return next(err);
     }
 
-    debug(`Deleted picture "${req.picture.description}"`);
+    debug(`Picture "${req.picture.description}" deleted`);
     res.sendStatus(204);
   });
 });
+
+
+// ------ FUNCTIONS ------
 
 // Get the picture by id
 function getPicture(req, res, next) {
@@ -310,9 +307,7 @@ function getPicture(req, res, next) {
   });
 }
 
-/**
- * Responds with 404 Not Found and a message indicating that the movie with the specified ID was not found.
- */
+// Responds with 404 Not Found and a message indicating that the picture with the specified ID was not found
 function pictureNotFound(res, pictureId) {
   return res.status(404).type('text').send(`No picture found with ID ${pictureId}`);
 }

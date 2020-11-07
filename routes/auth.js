@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user');
+
+// ------ REQUIRE ------
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
+
+// ------ MODELS ------
+const User = require('../models/user');
 
 /**
  * @api {post} /login Login of users
@@ -12,16 +16,16 @@ const config = require('../config');
  * @apiVersion 1.0.0
  * @apiDescription Login of users
  *
- * @apiParam (Request body) {String{/^[a-zA-Z0-9]+$/}} username The username of the user 
+ * @apiParam (Request body) {String{/^[a-zA-Z0-9]+$/}} username The username of the user
  * @apiParam (Request body) {String} The password of the user  (that is hashed in db)
- * 
+ *
  * @apiSuccess (Response body) {String} token The token of the user of the session (last 1 week)
- * 
- * @apiError {Object} 401/Unauthorized 
+ *
+ * @apiError {Object} 401/Unauthorized
  * @apiErrorExample {json} 401 Unauthorized
  *     HTTP/1.1 401 Unauthorized
  *     Content-Type: text/plain
- * 
+ *
  *     Unauthorized
  *
  * @apiExample Example
@@ -59,8 +63,6 @@ router.post('/', function(req, res, next) {
       } else if (!valid) {
         return res.sendStatus(401);
       }
-      // Login is valid...
-      // res.send(`Hello ${user.username} !`);
 
       // Generate a valid JWT which expires in 7 days.
       // An authentication token allows a user to authenticate to a server without sending his or her credentials at every request.
@@ -74,9 +76,10 @@ router.post('/', function(req, res, next) {
         if (err) {
           return next(err);
         }
+        // Send the token to the client.
         res.send({
           token: token
-        }); // Send the token to the client.
+        });
       });
 
     });

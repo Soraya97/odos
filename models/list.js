@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
-const uniqueValidator = require('mongoose-unique-validator');
 
 // Schema for lists
 const listSchema = new Schema({
@@ -30,7 +30,7 @@ const listSchema = new Schema({
   public: { type: Boolean, default: false }
 });
 
-// Do not send the password in the response
+// Do not send the __v in the response
 listSchema.set('toJSON', {
    transform: transformJsonList
 });

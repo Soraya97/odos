@@ -1,8 +1,11 @@
+// ------ REQUIRE ------
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 const formatLinkHeader = require('format-link-header');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
+
+// ------ MODELS ------
 const User = require('../models/user');
 
 
@@ -47,6 +50,7 @@ exports.getUser = function(req, res, next) {
   });
 }
 
+// Responds with 404 Not Found and a message indicating that the picture with the specified ID was not found
 function userNotFound(res, userId) {
   return res.status(404).type('text').send(`No user found with ID ${userId}`);
 }

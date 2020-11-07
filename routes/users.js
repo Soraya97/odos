@@ -1,14 +1,18 @@
+// ------ REQUIRE ------
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const debug = require('debug')('demo:people');
-
-const User = require('../models/user');
-const ObjectId = mongoose.Types.ObjectId;
-
 const config = require('../config');
 const utils = require('./utils');
+const ObjectId = mongoose.Types.ObjectId;
+
+// ------ MODELS ------
+const User = require('../models/user');
+
+
+// ------ RESOURCES ODOS ------
 
 /**
  * @api {get} /users Retrieve all users
@@ -134,7 +138,7 @@ router.post('/', function(req, res, next) {
       if (err) {
         return next(err);
       }
-      debug(`New user "${savedUser.username}"`);
+      debug(`New user "${savedUser.username}" created`);
       // Send the saved document in the response
       res.status(201).send(savedUser);
     });
@@ -189,6 +193,7 @@ router.patch('/:userId', utils.getUser, utils.authenticate, authorization, async
       req.user.password = newHashedPassword;
     }
     const savedUser = await req.user.save();
+    debug(`User "${savedUser.description}" updated`);
     res.send(savedUser);
   } catch (err) {
     next(err);
@@ -221,7 +226,7 @@ router.delete('/:userId', utils.getUser, utils.authenticate, authorization, func
       return next(err);
     }
 
-    debug(`Deleted user "${req.user.username}"`);
+    debug(`User "${req.user.username}" deleted`);
     res.sendStatus(204);
   });
 });
