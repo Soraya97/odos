@@ -37,8 +37,6 @@ const List = require('../models/list');
  * @apiParam (URL query parameters) {Date} [max_date] Select only pictures after this specified date
  * @apiParam (URL query parameters) {Number} [page] Which page to display
  * @apiParam (URL query parameters) {Number} [pageSize] How many items per page to display
- * @apiParam (URL query parameters) {Date} [min_date] Select only pictures before this specified date
- * @apiParam (URL query parameters) {Date} [max_date] Select only pictures after this specified date
  *
  * @apiExample Example
  *     GET /feed?page=1&pageSize=1 HTTP/1.1
@@ -104,16 +102,6 @@ router.get('/', function(req, res, next) {
     // Populate the userId if indicated in the "include" URL query parameter
     if (utils.responseShouldInclude(req, 'user')) {
       query = query.populate('userId');
-    }
-
-    // Pictures after a date_min specified by the user
-    if (req.query.date_min) {
-      query = query.where('creation_date').gte(req.query.date_min);
-    }
-
-    // Pictures before a date_max specified by the user
-    if (req.query.date_max) {
-      query = query.where('creation_date').lte(req.query.date_max);
     }
 
     // Execute the query

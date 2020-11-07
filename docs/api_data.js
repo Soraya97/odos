@@ -2147,5 +2147,137 @@ define({ "api": [
         }
       ]
     }
+  },
+  {
+    "type": "Add",
+    "url": "/",
+    "title": "Add a link to header",
+    "name": "AddLink",
+    "group": "Utils",
+    "version": "1.0.0",
+    "description": "<p>Adds a Link header to the response (if applicable).</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "resourceHref",
+            "description": "<p>The hyperlink reference of the collection (e.g. &quot;/api/people&quot;)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "page",
+            "description": "<p>The page being listed</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "pageSize",
+            "description": "<p>The page size</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "total",
+            "description": "<p>The total number of elements</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ExpressResponse",
+            "optional": false,
+            "field": "res",
+            "description": "<p>The Express response object</p>"
+          }
+        ]
+      }
+    },
+    "filename": "routes/utils.js",
+    "groupTitle": "Utils"
+  },
+  {
+    "type": "get",
+    "url": "/",
+    "title": "Get the user by id",
+    "name": "GetUser",
+    "group": "Utils",
+    "version": "1.0.0",
+    "description": "<p>file where the functions that are used in multiple files are located</p>",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "404/NotFound",
+            "description": "<p>No User was found corresponding to the ID in the URL path</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p>Something went wrong</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404 Not Found",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo User found with ID 5f981e64eeac3042b0e27b86",
+          "type": "json"
+        },
+        {
+          "title": "401 Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: text/plain\n\nAuthorization header is missing",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "routes/utils.js",
+    "groupTitle": "Utils"
+  },
+  {
+    "type": "Parse",
+    "url": "/",
+    "title": "Parses the pagination parameters",
+    "name": "ParsesParam",
+    "group": "Utils",
+    "version": "1.0.0",
+    "description": "<p>Parses the pagination parameters (i.e. page &amp; page size) from the request.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ExpressRequest",
+            "optional": false,
+            "field": "req",
+            "description": "<p>The Express request object</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "return",
+            "description": "<p>An object with &quot;page&quot; and &quot;pageSize&quot; properties</p>"
+          }
+        ]
+      }
+    },
+    "filename": "routes/utils.js",
+    "groupTitle": "Utils"
   }
 ] });
