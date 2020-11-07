@@ -42,7 +42,9 @@ Application for sharing geotagged travel photos with favorites list function.
 | **Action**                            | **Verb** | **Path**                                                     | Comments              |
 | ------------------------------------- | -------- | ------------------------------------------------------------ | --------------------- |
 | See the feed                          | GET      | http://odos-archioweb.herokuapp.com/feed                     |                       |
-| See the feed by pagination            | GET      | http://odos-archioweb.herokuapp.com/feed?page=X&pageSize=Y   |                       |
+| Filter the feed by pagination            | GET      | http://odos-archioweb.herokuapp.com/feed?page=X&pageSize=Y   |                       |
+| Filter the feed by date_min            | GET      | http://odos-archioweb.herokuapp.com/feed?date_min=X   |                       |
+| Filter the feed by date_max            | GET      | http://odos-archioweb.herokuapp.com/feed?date_max=X   |                       |
 | See all pictures from a specific user | GET      | http://odos-archioweb.herokuapp.com/users/:userId/pictures   |                       |
 | See one picture from a specific user  | GET      | http://odos-archioweb.herokuapp.com/users/:userId/pictures/:pictureId |                       |
 | Add one picture                       | POST     | http://odos-archioweb.herokuapp.com/users/:userId/pictures   |                       |
