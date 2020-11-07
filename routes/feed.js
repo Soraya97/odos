@@ -18,7 +18,7 @@ const List = require('../models/list');
 
 // ------ RESOURCES ODOS ------
 
- /**
+/**
  * @api {get} /feed Feed of all pictures
  * @apiName RetrieveFeed
  * @apiGroup Feed
@@ -82,7 +82,7 @@ const List = require('../models/list');
 router.get('/', function(req, res, next) {
   // Count total pictures matching the URL query parameters
   const countQuery = queryPictures(req);
-  countQuery.count(function (err, total) {
+  countQuery.count(function(err, total) {
     if (err) {
       return next(err);
     }
@@ -91,7 +91,10 @@ router.get('/', function(req, res, next) {
     let query = queryPictures(req);
 
     // Parse pagination parameters from URL query parameters
-    const { page, pageSize } = utils.getPaginationParameters(req);
+    const {
+      page,
+      pageSize
+    } = utils.getPaginationParameters(req);
 
     // Apply the pagination to the database query
     query = query.skip((page - 1) * pageSize).limit(pageSize);
@@ -104,8 +107,20 @@ router.get('/', function(req, res, next) {
       query = query.populate('userId');
     }
 
+    // Pictures after a date_min specified by the user
+    if (req.query.date_min) {
+      query = query.where('creation_date').gte(req.query.date_min);
+    }
+
+    // Pictures before a date_max specified by the user
+    if (req.query.date_max) {
+      query = query.where('creation_date').lte(req.query.date_max);
+    }
+
     // Execute the query
-    query.sort({ description: 1 }).exec(function (err, pictures) {
+    query.sort({
+      description: 1
+    }).exec(function(err, pictures) {
       if (err) {
         return next(err);
       }
