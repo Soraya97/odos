@@ -15,7 +15,7 @@ const User = require('../models/user');
  * @apiGroup Utils
  * @apiVersion 1.0.0
  * @apiDescription file where the functions that are used in multiple files are located
- * 
+ *
  * @apiError {Object} 404/NotFound No User was found corresponding to the ID in the URL path
  * @apiErrorExample {json} 404 Not Found
  *     HTTP/1.1 404 Not Found
