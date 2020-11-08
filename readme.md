@@ -43,11 +43,11 @@ Application for sharing geotagged travel photos with favorites list function.
 | ------------------------------------- | -------- | ------------------------------------------------------------ | --------------------- |
 | See the feed                          | GET      | http://odos-archioweb.herokuapp.com/feed                     |                       |
 | Filter the feed by pagination            | GET      | http://odos-archioweb.herokuapp.com/feed?page=X&pageSize=Y   |                       |
-| Filter the feed by date_min            | GET      | http://odos-archioweb.herokuapp.com/feed?date_min=X   |                       |
-| Filter the feed by date_max            | GET      | http://odos-archioweb.herokuapp.com/feed?date_max=X   |                       |
+| Filter the feed by date_min            | GET      | http://odos-archioweb.herokuapp.com/feed?date_min=AAAA-MM-DD |                       |
+| Filter the feed by date_max            | GET      | http://odos-archioweb.herokuapp.com/feed?date_max=AAAA-MM-DD |                       |
 | See all pictures from a specific user | GET      | http://odos-archioweb.herokuapp.com/users/:userId/pictures   |                       |
 | See one picture from a specific user  | GET      | http://odos-archioweb.herokuapp.com/users/:userId/pictures/:pictureId |                       |
-| Add one picture                       | POST     | http://odos-archioweb.herokuapp.com/users/:userId/pictures   |                       |
+| Add one picture                       | POST     | http://odos-archioweb.herokuapp.com/users/:userId/pictures   | Must be authenticated |
 | Modify one picture                    | PATCH    | http://odos-archioweb.herokuapp.com/users/:userId/pictures/:pictureId | Must be authenticated |
 | Delete one picture                    | DELETE   | http://odos-archioweb.herokuapp.com/users/:userId/pictures/:pictureId | Must be authenticated |
 
@@ -55,7 +55,7 @@ Application for sharing geotagged travel photos with favorites list function.
 
 | **Action**                 | **Verb** | **Path**                                                     | Comments              |
 | -------------------------- | -------- | ------------------------------------------------------------ | --------------------- |
-| See all my favorites lists | GET      | http://odos-archioweb.herokuapp.com/users/userId/lists       | Must be authenticated |
+| See all my favorites lists | GET      | http://odos-archioweb.herokuapp.com/users/:userId/lists      | Must be authenticated |
 | See one list               | GET      | http://odos-archioweb.herokuapp.com/users/:userId/lists/:listId | Must be authenticated |
 | Add one list               | POST     | http://odos-archioweb.herokuapp.com/users/:userId/lists      | Must be authenticated |
 | Modify one list            | PATCH    | http://odos-archioweb.herokuapp.com/users/:userId/lists/:listId | Must be authenticated |
