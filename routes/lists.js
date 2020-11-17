@@ -70,10 +70,6 @@ router.get('/', utils.getUser, utils.authenticate, authorization, function(req, 
         return next(err);
       }
 
-      // Websocket
-      const nbLists = lists.length;
-      webSocket.nbLists(nbLists);
-
       res.send(lists);
     });
 
@@ -213,6 +209,10 @@ router.post('/', utils.authenticate, utils.getUser, authorization, function(req,
     if (err) {
       return next(err);
     }
+
+    // Websocket
+    const nbLists = savedList.length;
+    webSocket.nbLists(nbLists);
 
     debug(`New list "${savedList.name}" created`);
     res.status(201).send(savedList);

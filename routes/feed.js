@@ -126,8 +126,8 @@ router.get('/', function(req, res, next) {
       }
 
       // Websocket
-      const nbPictures = pictures.length;
-      webSocket.nbPictures(nbPictures);
+      // const nbPictures = pictures.length;
+      // webSocket.nbPictures(nbPictures);
 
       res.send(pictures);
     });

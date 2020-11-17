@@ -25,7 +25,7 @@ exports.createBackendDispatcher = function(server) {
         // Forget the mapping when the client disconnects.
         ws.on('close', () => {
             logger.info(`You are disconnected`);
-            delete tabCreateUsers[0];
+            tabCreateUsers.splice(tabCreateUsers.indexOf(ws), 1);
         });
     });
 };
