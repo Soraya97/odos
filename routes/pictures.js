@@ -186,7 +186,8 @@ router.post('/', utils.getUser, utils.authenticate, authorization, function (req
 
     // Websocket
     // const nbPictures = savedPicture.length;
-    webSocket.nbPictures(savedPicture);
+    webSocket.nbPictures();
+    webSocket.newPicture(savedPicture);
 
     // Send the saved document in the response
     debug(`New picture "${savedPicture.description}" created`);

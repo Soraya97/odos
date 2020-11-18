@@ -43,7 +43,7 @@ exports.nbUsers = function(users){
 };
 
 // Counting the number of pictures
-exports.nbPictures = function(pictures){
+exports.nbPictures = function(){
   Picture.count(function(err, count) {
     if (err) {
       return;
@@ -52,6 +52,13 @@ exports.nbPictures = function(pictures){
       ws.send('There are ' + count + ' pictures');
     })
   });
+};
+
+// Get the new pictureNotFound
+exports.newPicture = function(picture){
+  tabCreateUsers.forEach(ws => {
+      ws.send('There is a new picture: ' + picture);
+  })
 };
 
 // Counting the number of lists
