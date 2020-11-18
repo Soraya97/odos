@@ -4,8 +4,13 @@ const WebSocket = require('ws');
 // ------ LOGGER ------
 const { createLogger } = require('../config');
 
+// ------ MODELS ------
+const Picture = require('../models/picture');
+
 // ------ VARIABLES ------
 let tabCreateUsers = [];
+
+
 
 // ------ FUNCTIONS ------
 exports.createBackendDispatcher = function(server) {
@@ -39,9 +44,14 @@ exports.nbUsers = function(users){
 
 // Counting the number of pictures
 exports.nbPictures = function(pictures){
+  Picture.count(function(err, count) {
+    if (err) {
+      return;
+    }
     tabCreateUsers.forEach(ws => {
-        ws.send('There are ' + pictures + ' pictures');
+      ws.send('There are ' + count + ' pictures');
     })
+  });
 };
 
 // Counting the number of lists

@@ -8,6 +8,9 @@ const ObjectId = mongoose.Types.ObjectId;
 const debug = require('debug')('demo:people');
 const utils = require('./utils');
 
+// ------ WEBSOCKET ------
+const webSocket = require('../websocket/dispatcher');
+
 // ------ MODELS ------
 const Picture = require('../models/picture');
 const List = require('../models/list');
@@ -183,7 +186,7 @@ router.post('/', utils.getUser, utils.authenticate, authorization, function (req
 
     // Websocket
     const nbPictures = savedPicture.length;
-    webSocket.nbLists(nbPictures);
+    webSocket.nbPictures(nbPictures);
 
     // Send the saved document in the response
     debug(`New picture "${savedPicture.description}" created`);
