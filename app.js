@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('cors')
 
 const config = require('./config');
 const indexRouter = require('./routes/index');
@@ -21,6 +22,7 @@ mongoose.connect(config.databaseUrl, {
 });
 
 const app = express();
+app.use(cors());
 
 // Serve the apiDoc documentation
 app.use('/apidoc', express.static(path.join(__dirname, 'docs')));
