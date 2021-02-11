@@ -60,11 +60,13 @@ router.get('/', utils.getUser, utils.authenticate, authorization, function(req, 
   // Find the lists
   List
     .find({
-      user: req.currentUserId,
-      user: user
+      user: req.currentUserId
     })
     .populate('user')
-    .populate({ path: 'picture', model: Picture })
+    .populate({
+      path: 'picture',
+      model: Picture
+    })
     .sort('name')
     .exec(function(err, lists) {
       if (err) {
