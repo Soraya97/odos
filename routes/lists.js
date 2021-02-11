@@ -62,8 +62,8 @@ router.get('/', utils.getUser, utils.authenticate, authorization, function(req, 
     .find({
       user: req.currentUserId
     })
-    // .populate('user')
-    // .populate({ path: 'picture', model: Picture })
+    .populate('user')
+    .populate({ path: 'picture', model: Picture })
     .sort('name')
     .exec(function(err, lists) {
       if (err) {
